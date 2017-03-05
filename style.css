@@ -1,0 +1,96 @@
+* {
+  font-family: arial;
+}
+.btn {
+  outline: none
+}
+a {
+  cursor: pointer;
+}
+.btn.disabled.nohover, .btn[disabled].nohover {
+  cursor: default;
+  outline: none
+}
+.centered {
+  text-align: center
+}
+.table > tbody > tr > td {
+  vertical-align: middle;
+}
+.vcentered{
+  vertical-align: middle
+}
+.title {
+  font-size: 42px;
+  text-align: center;
+  width: auto;
+  display: inline-block;
+}
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+.big {
+  font-size: 24px;
+}
+.value {
+  text-align: center;
+}
+.tooltip-inner {
+    white-space:pre-wrap;
+}
+.panel-default.panel-wisdom >.panel-heading{
+background: #ca950f; color: #fff; }
+.panel-default.panel-readiness >.panel-heading{
+background: #3ab68b; color: #fff; 
+}
+.panel-default.panel-readiness {
+border-color: #3ab68b; 
+}
+.label-wisdom {
+background: #ca950f; color: #fff; }
+.questLimitExceeded{
+  position: fixed;
+
+  top: 0px;
+  margin-left: 25%;
+  width: 50%;
+}
+.questLimitExceeded .modal-content{
+  background-color: #d9534f
+}
+.badge-level{
+  background-color: #737232
+}
+
+a.completed{
+  background-color: rgba(0, 128, 0, 0.2)
+}
+.nav>li:not(.active)>a.completed:hover{
+  background-color: rgba(64, 128, 64, 0.4)
+}
+
+a.inProgress{
+  background-color: rgba(128, 128, 0, 0.2)
+}
+.nav>li:not(.active)>a.inProgress:hover{
+  background-color: rgba(128, 128, 64, 0.4)
+}
+
+a.failed{
+  background-color: rgba(128, 0, 0, 0.2)
+}
+.nav>li:not(.active)>a.failed:hover{
+  background-color: rgba(128, 64, 64, 0.4)
+}
+
+.wordwrap {
+  word-wrap: break-word;
+  white-space: normal;
+}
+.left {
+  text-align: left;
+}
+.right {
+  text-align: right;
+}

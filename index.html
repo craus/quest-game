@@ -1,0 +1,351 @@
+<head>
+  <meta charset="UTF-8">
+  
+  <link rel="shortcut icon" href="https://due.com/wp-content/themes/due/images/programmers-thumb-08.png">
+  <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+	<script src="jquery.js"></script>
+	<script src="underscore.js"></script>
+  <script src="bootstrap.min.js"></script>
+  <script src="bootstrap-sortable.js"></script>
+  <link rel="stylesheet" type="text/css" href="bootstrap-sortable.css">
+
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <script src="polyfill.js"></script> 
+  
+	<script src="com.js"></script>
+	<script src="variable.js"></script>
+	<script src="calculatable.js"></script>
+	<script src="monkey_patches.js"></script>
+	<script src="bounds.js"></script>
+	<script src="ui.js"></script>
+ 	<script src="cursor_watcher.js"></script>
+ 	<script src="combinators.js"></script>
+ 	<script src="time_controls.js"></script>
+ 	<script src="debug.js"></script>
+  <script src="deque.js"></script>
+  <script src="derivative.js"></script>
+  <script src="colors.js"></script>
+  <script src="dev.js"></script>
+  <script src="command.js"></script>
+  <script src="buy_event.js"></script>  
+  <script src="event.js"></script>  
+  <script src="unlinear_event.js"></script> 
+  <script src="unlinear_buy_event.js"></script>  
+  <script src="setter.js"></script>  
+  <script src="unpredictable_event.js"></script>  
+  <script src="gaussed.js"></script>
+  <script src="poisson-process.js"></script>
+  <script src="poisson.js"></script>
+  
+  <script src="effect.js"></script> 
+  <script src="powerEffect.js"></script> 
+  
+  <script src="spell.js"></script> 
+  <script src="cooldown.js"></script> 
+  <script src="game.js"></script> 
+  <script src="buy.js"></script>
+  
+  <script src="names.js"></script>
+  <script src="questNames.js"></script>
+  <script src="hero.js" charset="ISO-8859-1"></script>
+  <script src="quest.js" charset="ISO-8859-1"></script>
+  <script src="item.js" charset="ISO-8859-1"></script>
+  
+  <script src="init.js"></script>
+</head>
+
+<body>
+
+<div class="container-fluid">
+  <br>
+  <div class="row centered"> 
+    <div class="col-sm-6">       
+      <div class="panel panel-default panel-readiness">
+        <div class="panel-body big left">
+          <span class="name">Time:</span> <span class="time value">?</span> 
+        </div>
+      </div>   
+    </div>
+    <div class="col-sm-6">       
+      <div class="panel panel-default panel-readiness">
+        <div class="panel-body big right">
+          <span class="gold value">?</span> <span class="name">Gold</span>
+        </div>
+      </div>   
+    </div>   
+  </div>
+  <div class="row">
+    <ul class="nav nav-tabs">
+      <li class="active"><a data-toggle="pill" href="#home">Quests</a></li>
+      <li><a data-toggle="pill" href="#menu1">Items</a></li>
+      <li><a data-toggle="pill" href="#menu2">Marketplace</a></li>
+    </ul>
+  </div>
+  <div class="row centered">
+    <div class="col-sm-2">
+      <h2><span class="name">Heroes</span></h2>
+      <ul class="nav nav-pills nav-stacked heroTabs">
+        <li class="heroTabSample hidden">
+          <a class="left">
+            <div>
+              <table>
+                <tr>
+                  <td width="35%">
+                    <span class="badge big level">5</span>
+                  </td>
+                  <td>
+                    <div>
+                      <span class="name">?</span>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div>
+              <small class="status">In progress</small>
+            </div>
+          </a>
+        </li>
+      </ul>
+      <button tabindex="-1" class="btn btn-default nohover disabled status btn-block wordwrap">
+        +1 Hero each ~<span class="heroesArrival period">?</span>
+      </button>
+      <button tabindex="-1" class="btn btn-default nohover buyHeroSlot btn-block wordwrap">
+        <span class="heroesArrival period">?</span> → <span class="heroesArrivalPeriodUp">?</span> (<span class="gold cost">?</span>&nbsp;gold)
+      </button>     
+    </div>    
+    <div class="col-sm-4">
+      <div class="tab-content heroes">
+        <div class="tab-pane fade heroSample hidden">
+          <div class="panel panel-default panel-readiness">
+            <div class="panel-heading"><h2><span class="name">?</span></h2></div>
+            <div class="panel-body">            
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td colspan=2 class="status text-right col-md-12">?</td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4"><b>Level</b></td>
+                    <td class="text-right">
+                      <span class="level">?</span>
+                      <span class="skillPointsNotZero">
+                        (<span class="skillPoints">?</span>&nbsp;skill&nbsp;points)
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4"><b>Experience</b></td>
+                    <td class="text-right"><span class="experience">?</span> / <span class = "experienceToLevelUp">?</span></td>
+                  </tr>
+                  <tr class="speed">
+                    <td class="col-md-4"><b>Speed</b></td>
+                    <td class="text-right">
+                      <span class="value">?</span>
+                      <a class="skillUp">→ <b class="skillUpValue">+</b></a>
+                    </td>
+                  </tr>
+                  <tr class="defense">
+                    <td class="col-md-4"><b>Defense</b></td>
+                    <td class="text-right">
+                      <span class="value">?</span>
+                      <a class="skillUp">→ <b class="skillUpValue">+</b></a>
+                    </td>
+                  </tr>
+                  <tr class="wealth">
+                    <td class="col-md-4"><b>Wealth</b></td>
+                    <td class="text-right">
+                      <span class="value">?</span>
+                      <a class="skillUp">→ <b class="skillUpValue">+</b></a>
+                    </td>
+                  </tr>
+                  <tr class="intelligence">
+                    <td class="col-md-4"><b>Intelligence</b></td>
+                    <td class="text-right">
+                      <span class="value">?</span>
+                      <a class="skillUp">→ <b class="skillUpValue">+</b></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="panel-body">
+              <div class="btn-group btn-group-justified">
+                <div class="btn-group">
+                  <button tabindex="-1" class="btn btn-default nohover start">Start</button>
+                  <button tabindex="-1" class="btn btn-danger nohover abandon">Abandon</button>
+                  <button tabindex="-1" class="btn btn-danger nohover bury">Bury</button>
+                  <button tabindex="-1" class="btn btn-default nohover claimReward">Claim Reward</button>
+                </div>
+              </div>
+            </div>
+          </div>  
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="tab-content quests">
+        <div class="tab-pane fade questSample hidden">
+          <div class="panel panel-default panel-readiness">
+            <div class="panel-heading vcentered" style="min-height: 120">
+              <h2 class="vcentered">
+                <span class="name">?</span>
+              </h2>
+            </div>
+            <div class="panel-body">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td colspan=2 class="text-right col-md-12">
+                      <span class="status">?</span>
+                      <span class="whenInProgress">
+                        (<span class="percent">?</span>)
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4"><b>Level</b></td>
+                    <td class="level text-right">?</td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4"><b>Duration</b></td>
+                    <td class="text-right">
+                      <span class="started">
+                        <span class = "spentDuration">?</span> / <span class = "effectiveDuration">?</span>
+                      </span>
+                      <span class="notStarted">
+                        <span class="duration">?</span>
+                        <span class="man">
+                          (<span class = "effectiveDuration">?</span>)
+                        </span>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4"><b>Danger</b></td>
+                    <td class="text-right">
+                      <span class="danger">?</span>
+                      <span class="man">
+                        (<span class = "deathChance">?</span>)
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4"><b>Experience</b></td>
+                    <td class="text-right">
+                      <span class="experience">?</span>
+                      <span class="man">
+                        (<span class = "effectiveExperience">?</span>)
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4"><b>Gold</b></td>    
+                    <td class="text-right">
+                      <span class="gold">?</span>
+                      <span class="man">
+                        (<span class = "effectiveGold">?</span>)
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="panel-body">
+              <div class="btn-group btn-group-justified">
+                <div class="btn-group">
+                  <button tabindex="-1" class="btn btn-default nohover start">Start</button>
+                  <button tabindex="-1" class="btn btn-danger nohover abandon">Abandon</button>
+                  <button tabindex="-1" class="btn btn-danger nohover discard">Discard</button>
+                  <button tabindex="-1" class="btn btn-danger nohover buryHero">Bury hero</button>
+                  <button tabindex="-1" class="btn btn-default nohover claimReward">Claim Reward</button>
+                </div>
+              </div>          
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <h2><span class="name">Quests</span></h2>
+      <ul class="nav nav-pills nav-stacked questTabs">
+        <li class="questTabSample hidden">
+          <a class="left">
+            <table>
+              <tr>
+                <td width="35%">
+                  <span class="badge big level">5</span>
+                </td>
+                <td>
+                  <div>
+                    <span class="name">?</span>
+                  </div>
+                </td>
+              </tr>
+            </table>
+            <small class="centered status">In progress</small>
+            <br>
+            <small class="centered whenInProgress">
+              <span class="percent">?</span>
+            </small>
+          </a>
+        </li>
+      </ul>
+      <button tabindex="-1" class="btn btn-default nohover disabled status btn-block wordwrap">
+        <span class="questChance">?</span> extra quest chance
+      </button>
+      <button tabindex="-1" class="btn btn-default nohover buyQuestSlot btn-block wordwrap">
+        <span class="questChance">?</span> → <span class="questChanceUp">?</span> (<span class="gold cost">?</span>&nbsp;gold)
+      </button>      
+    </div>  
+  </div>
+  
+  <div class="row centered">
+    <button class="btn btn-danger btn-lg" data-toggle="modal" data-target="#confirm-wipe-save">Wipe save</button>
+    <br>
+  </div>
+</div>
+
+<div class="questLimitExceeded danger hidden" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Too Many Quests</h4>
+      </div>
+  
+      <div class="modal-body">
+        <p>You exceeded your Quest Limit.</p>
+        <p>You should discard some Quests to continue.</p>
+        <p class="debug-url"></p>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<div class="modal fade" id="confirm-wipe-save" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Confirm Wipe save</h4>
+      </div>
+  
+      <div class="modal-body">
+        <p>You will lost ALL your progress, this procedure is irreversible.</p>
+        <p>Do you want to proceed?</p>
+        <p class="debug-url"></p>
+      </div>
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <a class="btn btn-danger btn-ok" onclick="wipeSave()">YES</a>
+      </div>
+    </div>
+  </div>
+</div>
+  
+</body>

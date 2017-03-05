@@ -65,12 +65,12 @@ quest = (params={}) => {
     status: function() {
       if (this.hero) {  
         if (this.completed()) {
-          return "Completed — " + this.hero.name
+          return "Completed \u2014 " + this.hero.name
         }      
         if (this.failed()) {
-          return "Failed — " + this.hero.name
+          return "Failed \u2014 " + this.hero.name
         }
-        return "In Progress — #{0}".i(this.hero.name)
+        return "In Progress \u2014 #{0}".i(this.hero.name)
       }
       if (this.selected) {
         return "Waiting for a hero"

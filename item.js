@@ -90,7 +90,7 @@ item = (params={}) => {
     paint: function() {
       panel.find('.buy').toggle(!this.bought)
       enable(panel.find('.buy'), resources.gold() >= this.cost)
-      enable(panel.find('.equip'), !selectedHero.quest)
+      enable(panel.find('.equip'), selectedHero && !selectedHero.quest)
       enable(panel.find('.unequip'), !!this.hero && !this.hero.quest)
       panel.find('.equip').toggle(this.bought && this.hero != selectedHero && selectedHero.items.length < 2)
       panel.find('.unequip').toggle(!!this.hero)

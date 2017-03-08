@@ -21,6 +21,9 @@ hero = (params={}) => {
       wealth: 1,
       intelligence: 1
     },
+    effectiveSkill: function(skill) {
+      return this.items.reduce((acc, item) => acc * (item.effects[skill] || 1), this.skills[skill])
+    },
     skillGrowth: {
       defense: () => hero.skills.defense*1.5,
       speed: () => hero.skills.speed*2,
@@ -110,10 +113,18 @@ hero = (params={}) => {
       setFormattedText(panel.find('.defense').find('.value'), large(this.skills.defense))
       setFormattedText(panel.find('.intelligence').find('.value'), large(this.skills.intelligence))
       setFormattedText(panel.find('.wealth').find('.value'), large(this.skills.wealth))
+      
+      setFormattedText(panel.find('.speed').find('.effectiveValue'), large(this.effectiveSkill('speed')))
+      setFormattedText(panel.find('.defense').find('.effectiveValue'), large(this.effectiveSkill('defense')))
+      setFormattedText(panel.find('.intelligence').find('.effectiveValue'), large(this.effectiveSkill('intelligence')))
+      setFormattedText(panel.find('.wealth').find('.effectiveValue'), large(this.effectiveSkill('wealth')))
+      
       setFormattedText(panel.find('.experience'), large(this.experience))
       setFormattedText(panel.find('.experienceToLevelUp'), large(this.experienceToLevelUp()))
       
       setFormattedText(panel.find('.itemCount'), this.items.length)
+      
+      panel.find('.equipped').toggle(this.items.length > 0)
       
       enable(panel.find('.start'), matchable())
       panel.find('.start').toggle(!this.quest)

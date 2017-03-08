@@ -111,13 +111,13 @@ quest = (params={}) => {
       if (!this.man()) {
         return this.duration
       }
-      return this.duration / this.man().skills.speed
+      return this.duration / this.man().effectiveSkill('speed')
     },
     effectiveExperience: function() {
-      return this.experience * this.man().skills.intelligence
+      return this.experience * this.man().effectiveSkill('intelligence')
     },
     deathChance: function() {
-      return this.danger / (this.danger + this.man().skills.defense)
+      return this.danger / (this.danger + this.man().effectiveSkill('defense'))
     },
     halfLife: function() {
       if (this.deathChance() < eps) {
@@ -129,7 +129,7 @@ quest = (params={}) => {
       return 2*this.halfLife()
     },
     effectiveGold: function() {
-      return this.gold * this.man().skills.wealth
+      return this.gold * this.man().effectiveSkill('wealth')
     },
     paint: function() {
       setFormattedText(panel.find('.status'), this.status())

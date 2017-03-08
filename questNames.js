@@ -45,5 +45,24 @@ The Submachine
 Brotherhood of Steel
 The Water Chip
 For the greater good
+The Manuscript
+Underhalls
+The Gantlet
+The Focus
+The Waste Tunnels
+The Crusher
+Dead Simple
+Tricks and Traps
+The Pit
+Circle of Death
+Downtown 
+The Citadel
+The Chasm
+Grosse
+Halls of the Damned
+Fortress of Mystery
+Smiley the Trapper
+The Rat God
+Farm of Ghosts
 `.split(`
 `)).filter(x => x.length > 0)

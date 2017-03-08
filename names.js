@@ -31,7 +31,6 @@ Jake
 Yong
 Delmer
 Hilton
-Son
 Bennie
 Larry
 Eduardo

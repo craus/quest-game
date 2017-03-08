@@ -18,6 +18,8 @@ item = (params={}) => {
   }
   var name = params.name || rndName()
   
+  var minLevel = 1
+  
   var randomness = 0.3 + 0.7 * Math.pow(params.level, 0.3)
   var coolness = gaussianRandom(0, 0.3 * randomness)
   var quality = gaussianRandom(0, 0.3 * randomness)
@@ -88,14 +90,19 @@ item = (params={}) => {
     paint: function() {
       panel.find('.buy').toggle(!this.bought)
       enable(panel.find('.buy'), resources.gold() >= this.cost)
+      enable(panel.find('.equip'), !selectedHero.quest)
+      enable(panel.find('.unequip'), !!this.hero && !this.hero.quest)
       panel.find('.equip').toggle(this.bought && this.hero != selectedHero && selectedHero.items.length < 2)
       panel.find('.unequip').toggle(!!this.hero)
-      panel.find('.sell').toggle(this.bought)
-      panel.find('.discard').toggle(!this.bought && this.level > 0)
+      panel.find('.sell').toggle(this.bought && !this.hero)
+      panel.find('.discard').toggle(!this.bought && this.level > minLevel)
       
       panel.find('.equipped').toggle(this.equipped())
       if (this.equipped()) {
         setFormattedText(panel.find('.heroName'), this.hero.name)
+      }
+      if (!!selectedHero) {
+        setFormattedText(panel.find('.selectedHeroName'), selectedHero.name)
       }
       
       var a = tab.find('a')

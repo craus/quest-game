@@ -144,7 +144,7 @@ hero = (params={}) => {
       if (this.quest) {
         this.quest.hero = null
       }
-      this.items.forEach(i => i.destroy())
+      this.items.slice().forEach(i => i.destroy())
       if (selectedHero == this) {
         selectedHero = null
       }

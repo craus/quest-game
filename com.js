@@ -30,6 +30,18 @@ function chances(p, q) {
 function rndEvent(p,q=1-p) {
   return Math.random() < chances(p, q)
 }
+function rndSplit(x, n) {
+  var splitters = [0,x]
+  for (var i = 0; i < n-1; i++) {
+    splitters.push(rnd(0,x))
+  }
+  splitters.sort()
+  var result = [0]
+  for (var i = 0; i < n; i++) {
+    result.push(splitters[i+1]-splitters[i])
+  }
+  return result
+}
 
 identityMatrix = [1,0,0,1,0,0]
 function transform(old, x,y,z,ang) {

@@ -41,7 +41,7 @@ function createGame(params) {
   resources = {
     gold: variable(0, 'gold'),
     time: variable(0, 'time'),
-    questLimit: variable(2, 'questLimit'),
+    questLimit: variable(1, 'questLimit'),
     heroLimit: variable(1, 'heroLimit')
   }
   
@@ -76,11 +76,15 @@ function createGame(params) {
     }
   }
   
+  traders = []
+  traders.push(item({level: 0}))
+  
   heroes.forEach(h => h.quest = quests[h.questIndex])
   quests.forEach(q => q.hero = heroes[q.heroIndex])
 
   selectedHero = heroes[savedata.selectedHeroIndex]
   selectedQuest = quests[savedata.selectedQuestIndex]
+  selectedItem = quests[savedata.selectedItemIndex]
   
   if (!!selectedHero) {
     selectedHero.select()
@@ -93,7 +97,7 @@ function createGame(params) {
     buyQuestSlot: buy({
       id: 'buyQuestSlot',
       cost: {
-        gold: () => 25 * (Math.pow(4, resources.questLimit()))
+        gold: () => 30 * (Math.pow(3, resources.questLimit()))
       }, 
       reward: {
         questLimit: () => 1
@@ -102,7 +106,7 @@ function createGame(params) {
     buyHeroSlot: buy({
       id: 'buyHeroSlot',
       cost: {
-        gold: () => 25 * (Math.pow(4, resources.heroLimit()))
+        gold: () => 30 * (Math.pow(3, resources.heroLimit()))
       }, 
       reward: {
         heroLimit: () => 1
@@ -110,7 +114,7 @@ function createGame(params) {
     })
   }
   
-  var heroesArrivalPeriod = (hl) => Math.pow(heroes.length, 2) * 30 * Math.pow(4, heroes.length-hl)
+  var heroesArrivalPeriod = (hl) => heroes.length == 0 ? 0 : (heroes.length < hl ? 60 : Number.POSITIVE_INFINITY)
   
   heroesArrival = poisson({
     trigger: function() {
@@ -148,6 +152,9 @@ function createGame(params) {
       resources.time.value += deltaTime
       heroesArrival.tick(deltaTime)
       quests.each('tick', deltaTime)
+      if (quests.length < resources.questLimit()) {
+        quests.push(quest({level: 0}))
+      }
       
       save(currentTime)
       debug.unprofile('tick')

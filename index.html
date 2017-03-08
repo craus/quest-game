@@ -48,9 +48,11 @@
   
   <script src="names.js"></script>
   <script src="questNames.js"></script>
+  <script src="itemNames.js"></script>
   <script src="hero.js"></script>
   <script src="quest.js"></script>
   <script src="item.js"></script>
+  <script src="trader.js"></script>
   
   <script src="init.js"></script>
 </head>
@@ -77,9 +79,9 @@
   </div>
   <div class="row">
     <ul class="nav nav-tabs">
-      <li class="active"><a data-toggle="pill" href="#home">Quests</a></li>
-      <li><a data-toggle="pill" href="#menu1">Items</a></li>
-      <li><a data-toggle="pill" href="#menu2">Marketplace</a></li>
+      <li class="active"><a data-toggle="pill" href=".questsSection">Quests</a></li>
+      <li><a data-toggle="pill" href=".itemsSection">Items</a></li>
+      <li><a data-toggle="pill" href=".marketplaceSection">Marketplace</a></li>
     </ul>
   </div>
   <div class="row centered">
@@ -117,6 +119,7 @@
     </div>    
     <div class="col-sm-4">
       <div class="tab-content heroes">
+        <h2><span class="name">Hero</span></h2>
         <div class="tab-pane fade heroSample hidden">
           <div class="panel panel-default panel-readiness">
             <div class="panel-heading"><h2><span class="name">?</span></h2></div>
@@ -184,8 +187,9 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-4">
-      <div class="tab-content quests">
+    <div class="col-sm-4 tab-content">
+      <div class="tab-content tab-pane questsSection fade quests in active">
+        <h2><span class="name">Quest</span></h2>
         <div class="tab-pane fade questSample hidden">
           <div class="panel panel-default panel-readiness">
             <div class="panel-heading vcentered" style="min-height: 120">
@@ -266,38 +270,136 @@
           </div>
         </div>
       </div>
+      <div class="tab-content fade tab-pane marketplaceSection traders">
+        <h2><span class="name">Item</span></h2>
+        <div class="tab-pane fade itemSample">
+          <div class="panel panel-default panel-readiness">
+            <div class="panel-heading vcentered" style="min-height: 120">
+              <h2 class="vcentered">
+                <span class="name">?</span>
+              </h2>
+            </div>
+            <div class="panel-body">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td class="col-md-4"><b>Level</b></td>
+                    <td class="level text-right">?</td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4"><b>Duration</b></td>
+                    <td class="text-right">
+                      <span class="started">
+                        <span class = "spentDuration">?</span> / <span class = "effectiveDuration">?</span>
+                      </span>
+                      <span class="notStarted">
+                        <span class="duration">?</span>
+                        <span class="man">
+                          (<span class = "effectiveDuration">?</span>)
+                        </span>
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4"><b>Danger</b></td>
+                    <td class="text-right">
+                      <span class="danger">?</span>
+                      <span class="man">
+                        (<span class = "deathChance">?</span>)
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4"><b>Experience</b></td>
+                    <td class="text-right">
+                      <span class="experience">?</span>
+                      <span class="man">
+                        (<span class = "effectiveExperience">?</span>)
+                      </span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="col-md-4"><b>Gold</b></td>    
+                    <td class="text-right">
+                      <span class="gold">?</span>
+                      <span class="man">
+                        (<span class = "effectiveGold">?</span>)
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="panel-body">
+              <div class="btn-group btn-group-justified">
+                <div class="btn-group">
+                  <button tabindex="-1" class="btn btn-default nohover start">Start</button>
+                  <button tabindex="-1" class="btn btn-danger nohover abandon">Abandon</button>
+                  <button tabindex="-1" class="btn btn-danger nohover discard">Discard</button>
+                  <button tabindex="-1" class="btn btn-danger nohover buryHero">Bury hero</button>
+                  <button tabindex="-1" class="btn btn-default nohover claimReward">Claim Reward</button>
+                </div>
+              </div>          
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="col-sm-2">
-      <h2><span class="name">Quests</span></h2>
-      <ul class="nav nav-pills nav-stacked questTabs">
-        <li class="questTabSample hidden">
-          <a class="left">
-            <table>
-              <tr>
-                <td width="35%">
-                  <span class="badge big level">5</span>
-                </td>
-                <td>
-                  <div>
-                    <span class="name">?</span>
-                  </div>
-                </td>
-              </tr>
-            </table>
-            <small class="centered status">In progress</small>
-            <br>
-            <small class="centered whenInProgress">
-              <span class="percent">?</span>
-            </small>
-          </a>
-        </li>
-      </ul>
-      <button tabindex="-1" class="btn btn-default nohover disabled status btn-block wordwrap">
-        <span class="questChance">?</span> extra quest chance
-      </button>
-      <button tabindex="-1" class="btn btn-default nohover buyQuestSlot btn-block wordwrap">
-        <span class="questChance">?</span> → <span class="questChanceUp">?</span> (<span class="gold cost">?</span>&nbsp;gold)
-      </button>      
+    <div class="col-sm-2 tab-content">
+      <div class="tab-pane fade in active questsSection">
+        <h2><span class="name">Quests</span></h2>
+        <ul class="nav nav-pills nav-stacked questTabs">
+          <li class="questTabSample hidden">
+            <a class="left">
+              <table>
+                <tr>
+                  <td width="35%">
+                    <span class="badge big level">??</span>
+                  </td>
+                  <td>
+                    <div>
+                      <span class="name">?</span>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+              <small class="centered status">???</small>
+              <br>
+              <small class="centered whenInProgress">
+                <span class="percent">?</span>
+              </small>
+            </a>
+          </li>
+        </ul>
+        <button tabindex="-1" class="btn btn-default nohover disabled status btn-block wordwrap">
+          <span class="questChance">?</span> extra quest chance
+        </button>
+        <button tabindex="-1" class="btn btn-default nohover buyQuestSlot btn-block wordwrap">
+          <span class="questChance">?</span> → <span class="questChanceUp">?</span> (<span class="gold cost">?</span>&nbsp;gold)
+        </button>
+      </div>
+      <div class="tab-pane fade marketplaceSection">
+        <h2><span class="name">Market</span></h2>
+        <ul class="nav nav-pills nav-stacked traderTabs">
+          <li class="itemTabSample hidden">
+            <a class="left">
+              <table>
+                <tr>
+                  <td width="35%">
+                    <span class="badge big level">5</span>
+                  </td>
+                  <td>
+                    <div>
+                      <span class="name">?</span>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+              <small><span class="centered cost">???</span> gold</small>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>  
   </div>
   

@@ -36,5 +36,14 @@ A Thin Disguise
 The Darkest Night
 The Darkest Knight
 Hold The Door
+Munchkin Quest
+Space Quest
+The Seventh Guest
+Shivers
+Siberia
+The Submachine
+Brotherhood of Steel
+The Water Chip
+For the greater good
 `.split(`
 `)).filter(x => x.length > 0)

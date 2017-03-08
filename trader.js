@@ -1,9 +1,9 @@
-quest = (params={}) => {
-  var panel = instantiate('questSample')
-  var tab = instantiate('questTabSample')
+trader = (params={}) => {
+  var panel = instantiate('itemSample')
+  var tab = instantiate('itemTabSample')
   if (params.instantiate != false) {
-    $('.quests').append(panel)
-    $('.questTabs').append(tab)
+    $('.trader').append(panel)
+    $('.traderTabs').append(tab)
   }
   
   var name = questNames.rnd()
@@ -23,7 +23,7 @@ quest = (params={}) => {
   var result = Object.assign({
     name: name,
     duration: Math.round(10 * Math.pow(2, params.level + power - danger)),
-    danger: 0.1*Math.pow(1.5, params.level + power + danger),
+    danger: 0.2*Math.pow(1.5, params.level + power + danger),
     experience: Math.round(5*Math.pow(2.2, params.level + power + quality - gold)),
     gold: Math.round(10*Math.pow(2.2, params.level + power + quality + gold)),
     deselect: function() {
@@ -65,12 +65,12 @@ quest = (params={}) => {
     status: function() {
       if (this.hero) {  
         if (this.completed()) {
-          return "Completed \u2014 " + this.hero.name
+          return "Completed — " + this.hero.name
         }      
         if (this.failed()) {
-          return "Failed \u2014 " + this.hero.name
+          return "Failed — " + this.hero.name
         }
-        return "In Progress \u2014 #{0}".i(this.hero.name)
+        return "In Progress — #{0}".i(this.hero.name)
       }
       if (this.selected) {
         return "Waiting for a hero"
@@ -191,7 +191,10 @@ quest = (params={}) => {
       this.hero.learn(this.effectiveExperience())
       this.abandon()
       this.destroy()
-      quests.push(quest({level: this.level+1}))
+      quests.push(quest({level: this.level}))
+      if (rndEvent(questChance())) {
+        quests.push(quest({level: this.level+1}))
+      }
     },
     destroy: function() {
       panel.remove()
@@ -203,10 +206,6 @@ quest = (params={}) => {
       if (selectedQuest == this) {
         selectedQuest = null
       }
-    },
-    discard: function() {
-      this.destroy()
-      quests.push(quest({level: this.level-1}))
     }
   }, params)
   
@@ -216,7 +215,7 @@ quest = (params={}) => {
   panel.find('.abandon').click(() => result.abandon())
   panel.find('.claimReward').click(() => result.claimReward())
   panel.find('.buryHero').click(() => result.hero.destroy())
-  panel.find('.discard').click(() => result.discard())
+  panel.find('.discard').click(() => result.destroy())
   
   tab.find('a').click(() => result.select())
   return result

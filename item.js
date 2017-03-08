@@ -2,8 +2,8 @@ item = (params={}) => {
   var panel = instantiate('itemSample')
   var tab = instantiate('itemTabSample')
   if (params.instantiate != false) {
-    $('.traders').append(panel)
-    $('.traderTabs').append(tab)
+    $('.items').append(panel)
+    $('.itemTabs').append(tab)
   }
   
   var rndName = () => {
@@ -59,6 +59,13 @@ item = (params={}) => {
     name: name,
     cost: cost,
     effects: effects,
+    bought: false,
+    sellCost: function() {
+      return Math.floor(cost/2)
+    },
+    equipped: function() {
+      return !!this.hero
+    },
     deselect: function() {
       selectedItem = null
       tab.removeClass('active')
@@ -78,57 +85,67 @@ item = (params={}) => {
       return "Exists"
     },
     paint: function() {
-      panel.find('.start').toggle(this.idle())
-      panel.find('.abandon').toggle(this.inProgress())
-      panel.find('.buryHero').toggle(this.failed())
-      panel.find('.claimReward').toggle(this.completed())
-      panel.find('.discard').toggle(this.idle() && this.level > 0)
+      panel.find('.buy').toggle(!this.bought)
+      enable(panel.find('.buy'), resources.gold() >= this.cost)
+      panel.find('.equip').toggle(this.bought && this.hero != selectedHero && selectedHero.items.length < 2)
+      panel.find('.unequip').toggle(!!this.hero)
+      panel.find('.sell').toggle(this.bought)
+      panel.find('.discard').toggle(!this.bought && this.level > 0)
+      
+      panel.find('.equipped').toggle(this.equipped())
+      if (this.equipped()) {
+        setFormattedText(panel.find('.heroName'), this.hero.name)
+      }
+      
+      var a = tab.find('a')
+      a.toggleClass('equipped', this.equipped() && this.hero != selectedHero)
+      a.toggleClass('equippedByCurrent', this.hero == selectedHero)
+      a.toggleClass('bought', this.bought && !this.equipped())
     },
-    tick: function() {
-      if (!this.hero) {
-        return
-      }
-      var currentTime = Math.min(this.effectiveDuration(), this.spentDuration())
-      var t = currentTime - this.lastSavePoint
-      var sample = PoissonProcess.sample(this.lifeTime())
-      if (sample < t) {
-        console.log("dead")
-        this.hero.alive = false
-      } else {
-        this.lastSavePoint = currentTime
-      }
+    buy: function() {
+      resources.gold.value -= this.cost
+      this.bought = true
+      items.push(item({level: this.level+1}))
+    },
+    equip: function() {
+      this.hero = selectedHero
+      selectedHero.items.push(this)
+    },
+    unequip: function() {
+      this.hero.items.remove(this)
+      this.hero = null
+    },
+    sell: function() {
+      resources.gold.value += this.sellCost()
+      this.destroy()
+    },
+    discard: function() {
+      items.push(item({level: this.level-1}))
+      this.destroy()
     },
     save: function() {
-      savedata.items.push(this)
+      savedata.items.push(Object.assign({
+        heroIndex: heroes.indexOf(this.hero)
+      }, _.omit(this, 'hero', 'heroIndex')))
     },
-    claimReward: function() {
-      resources.gold.value += this.effectiveGold()
-      this.hero.learn(this.effectiveExperience())
-      this.abandon()
-      this.destroy()
-      quests.push(quest({level: this.level}))
-      if (rndEvent(questChance())) {
-        quests.push(quest({level: this.level+1}))
+    destroy: function() {      
+      if (this.equipped()) {
+        this.unequip()
       }
-    },
-    destroy: function() {
+      if (selectedItem == this) {
+        this.deselect()
+      }
       panel.remove()
       tab.remove()
-      quests.splice(quests.indexOf(this), 1)
-      if (!!this.hero) {
-        this.hero.quest = null
-      }
-      if (selectedQuest == this) {
-        selectedQuest = null
-      }
+      items.splice(items.indexOf(this), 1)
     }
   }, params)
   
-  panel.find('.start').click(matchHeroAndQuest)
-  panel.find('.abandon').click(() => result.abandon())
-  panel.find('.claimReward').click(() => result.claimReward())
-  panel.find('.buryHero').click(() => result.hero.destroy())
-  panel.find('.discard').click(() => result.destroy())
+  panel.find('.buy').click(() => result.buy())
+  panel.find('.equip').click(() => result.equip())
+  panel.find('.unequip').click(() => result.unequip())
+  panel.find('.sell').click(() => result.sell())
+  panel.find('.discard').click(() => result.discard())
   
   tab.find('a').click(() => result.select())
   return result

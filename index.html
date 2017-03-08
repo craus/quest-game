@@ -170,6 +170,12 @@
                       <a class="skillUp">→ <b class="skillUpValue">+</b></a>
                     </td>
                   </tr>
+                  <tr class="heroItems">
+                    <td class="col-md-4"><b>Items</b></td>
+                    <td class="text-right">
+                      <span class="itemCount">?</span>/2
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -270,7 +276,7 @@
           </div>
         </div>
       </div>
-      <div class="tab-content fade tab-pane marketplaceSection traders">
+      <div class="tab-content fade tab-pane marketplaceSection items">
         <h2><span class="name">Item</span></h2>
         <div class="tab-pane fade itemSample">
           <div class="panel panel-default panel-readiness">
@@ -290,6 +296,10 @@
                     <td class="col-md-4"><b>Cost</b></td>
                     <td class="text-right"><span class="cost">?</span> gold</td>
                   </tr>
+                  <tr class="equipped">
+                    <td class="col-md-4"><b>Equipped by</b></td>
+                    <td class="text-right"><span class="heroName">?</span></td>
+                  </tr>
                   <tr class="hidden effectLineSample">
                     <td class="col-md-12" colspan=2>x<span class="value">?</span> <b class="skill">?</b></td>
                   </tr>
@@ -299,11 +309,11 @@
             <div class="panel-body">
               <div class="btn-group btn-group-justified">
                 <div class="btn-group">
-                  <button tabindex="-1" class="btn btn-default nohover start">Start</button>
-                  <button tabindex="-1" class="btn btn-danger nohover abandon">Abandon</button>
+                  <button tabindex="-1" class="btn btn-default nohover buy">Buy</button>
+                  <button tabindex="-1" class="btn btn-danger nohover equip">Equip</button>
+                  <button tabindex="-1" class="btn btn-danger nohover unequip">Unequip</button>
+                  <button tabindex="-1" class="btn btn-danger nohover sell">Sell</button>
                   <button tabindex="-1" class="btn btn-danger nohover discard">Discard</button>
-                  <button tabindex="-1" class="btn btn-danger nohover buryHero">Bury hero</button>
-                  <button tabindex="-1" class="btn btn-default nohover claimReward">Claim Reward</button>
                 </div>
               </div>          
             </div>
@@ -345,8 +355,8 @@
         </button>
       </div>
       <div class="tab-pane fade marketplaceSection">
-        <h2><span class="name">Market</span></h2>
-        <ul class="nav nav-pills nav-stacked traderTabs">
+        <h2><span class="name">Items</span></h2>
+        <ul class="nav nav-pills nav-stacked itemTabs">
           <li class="itemTabSample hidden">
             <a class="left">
               <table>

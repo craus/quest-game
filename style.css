@@ -84,6 +84,27 @@ a.failed{
   background-color: rgba(128, 64, 64, 0.4)
 }
 
+a.equippedByCurrent{
+  background-color: rgba(0, 128, 128, 0.2)
+}
+.nav>li:not(.active)>a.equippedByCurrent:hover{
+  background-color: rgba(64, 128, 128, 0.4)
+}
+
+a.equipped{
+  background-color: rgba(128, 128, 0, 0.2)
+}
+.nav>li:not(.active)>a.equipped:hover{
+  background-color: rgba(128, 64, 0, 0.4)
+}
+
+a.bought{
+  background-color: rgba(128, 128, 192, 0.2)
+}
+.nav>li:not(.active)>a.bought:hover{
+  background-color: rgba(160, 160, 192, 0.4)
+}
+
 .wordwrap {
   word-wrap: break-word;
   white-space: normal;

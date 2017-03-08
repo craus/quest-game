@@ -14,6 +14,7 @@ hero = (params={}) => {
   
   var hero = Object.assign({
     name: name,
+    items: [],
     skills: {
       defense: 1,
       speed: 1,
@@ -111,6 +112,9 @@ hero = (params={}) => {
       setFormattedText(panel.find('.wealth').find('.value'), large(this.skills.wealth))
       setFormattedText(panel.find('.experience'), large(this.experience))
       setFormattedText(panel.find('.experienceToLevelUp'), large(this.experienceToLevelUp()))
+      
+      setFormattedText(panel.find('.itemCount'), this.items.length)
+      
       enable(panel.find('.start'), matchable())
       panel.find('.start').toggle(!this.quest)
       panel.find('.abandon').toggle(!!this.quest && this.quest.inProgress())
@@ -120,7 +124,7 @@ hero = (params={}) => {
     save: function() {
       savedata.heroes.push(Object.assign({
         questIndex: quests.indexOf(this.quest)
-      }, _.omit(this, 'quest', 'questIndex', 'skillGrowth')))
+      }, _.omit(this, 'quest', 'questIndex', 'items', 'skillGrowth')))
     },
     destroy: function() {
       panel.remove()
@@ -129,6 +133,7 @@ hero = (params={}) => {
       if (this.quest) {
         this.quest.hero = null
       }
+      this.items.forEach(i => i.destroy())
       if (selectedHero == this) {
         selectedHero = null
       }

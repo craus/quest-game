@@ -124,7 +124,6 @@ Robe of the Magi
 Rod of Atos
 Sange
 Heaven's Halberd
-Satanic
 Scythe of Vyse
 Shiva's Guard
 Eye of Skadi

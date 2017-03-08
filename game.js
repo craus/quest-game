@@ -91,6 +91,13 @@ function createGame(params) {
   
   heroes.forEach(h => h.quest = quests[h.questIndex])
   quests.forEach(q => q.hero = heroes[q.heroIndex])
+  heroes.forEach(h => h.items = [])
+  items.forEach(i => {
+    i.hero = heroes[i.heroIndex]
+    if (!!i.hero) {
+      i.hero.items.push(i)
+    }
+  })
 
   selectedHero = heroes[savedata.selectedHeroIndex]
   selectedQuest = quests[savedata.selectedQuestIndex]
@@ -110,7 +117,7 @@ function createGame(params) {
     buyQuestSlot: buy({
       id: 'buyQuestSlot',
       cost: {
-        gold: () => 30 * (Math.pow(3, resources.questLimit()))
+        gold: () => 25 * (Math.pow(2, resources.questLimit()))
       }, 
       reward: {
         questLimit: () => 1
@@ -119,7 +126,7 @@ function createGame(params) {
     buyHeroSlot: buy({
       id: 'buyHeroSlot',
       cost: {
-        gold: () => 30 * (Math.pow(3, resources.heroLimit()))
+        gold: () => 25 * (Math.pow(2, resources.heroLimit()))
       }, 
       reward: {
         heroLimit: () => 1
@@ -127,7 +134,7 @@ function createGame(params) {
     })
   }
   
-  var heroesArrivalPeriod = (hl) => heroes.length == 0 ? 0 : (heroes.length < hl ? 60 : Number.POSITIVE_INFINITY)
+  var heroesArrivalPeriod = (hl) => heroes.length == 0 ? 0 : (heroes.length < hl ? 30 : Number.POSITIVE_INFINITY)
   
   heroesArrival = poisson({
     trigger: function() {
@@ -152,6 +159,7 @@ function createGame(params) {
       Object.values(resources).each('paint')
       heroes.each('paint')
       quests.each('paint')
+      items.each('paint')
       setFormattedText($('.heroCount'), heroes.length)
       setFormattedText($('.questCount'), quests.length)
       Object.values(buys).each('paint')

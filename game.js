@@ -24,11 +24,16 @@ function createGame(params) {
     Object.values(resources).each('save')
     savedata.quests = []
     savedata.heroes = []
+    savedata.items = []
     heroes.each('save')
     quests.each('save')
+    items.each('save')
     savedata.selectedHeroIndex = heroes.indexOf(selectedHero)
     savedata.selectedQuestIndex = quests.indexOf(selectedQuest)
+    savedata.selectedItemIndex = items.indexOf(selectedItem)
     savedata.realTime = timestamp || Date.now()
+    savedata.activeTab = $('.sections>.active>a').attr('href')
+    savedata.activeTechTab = $('.techs>.active>a').attr('href')
     localStorage[saveName] = JSON.stringify(savedata)
   } 
   
@@ -76,21 +81,29 @@ function createGame(params) {
     }
   }
   
-  traders = []
-  traders.push(item({level: 0}))
+  items = []
+  if (savedata.items) {
+    items = savedata.items.map(item)
+  } else {
+    items.push(item({level: 0}))
+    items.push(item({level: 1}))
+  }
   
   heroes.forEach(h => h.quest = quests[h.questIndex])
   quests.forEach(q => q.hero = heroes[q.heroIndex])
 
   selectedHero = heroes[savedata.selectedHeroIndex]
   selectedQuest = quests[savedata.selectedQuestIndex]
-  selectedItem = quests[savedata.selectedItemIndex]
+  selectedItem = items[savedata.selectedItemIndex]
   
   if (!!selectedHero) {
     selectedHero.select()
   }
   if (!!selectedQuest) {
     selectedQuest.select()
+  }
+  if (!!selectedItem) {
+    selectedItem.select()
   }
   
   buys = {
@@ -125,6 +138,12 @@ function createGame(params) {
   
   var questChanceByLimit = (ql) => chances(Math.pow(4, ql), Math.pow(quests.length,2)*0.125*Math.pow(4, quests.length))
   questChance = () => questChanceByLimit(resources.questLimit())
+  
+  
+  savedata.activeTab = savedata.activeTab || '#heroes'
+  
+  $('a[href="' + savedata.activeTab + '"]').tab('show')
+  $('a[href="' + savedata.activeTechTab + '"]').tab('show')
   
   spellcaster = {
     paint: function() {

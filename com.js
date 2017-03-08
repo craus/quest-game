@@ -36,7 +36,7 @@ function rndSplit(x, n) {
     splitters.push(rnd(0,x))
   }
   splitters.sort()
-  var result = [0]
+  var result = []
   for (var i = 0; i < n; i++) {
     result.push(splitters[i+1]-splitters[i])
   }

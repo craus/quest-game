@@ -6,16 +6,20 @@ item = (params={}) => {
     $('.traderTabs').append(tab)
   }
   
-  var name = itemNames.rnd()
-  for (var i = 0; i < 100; i++) {
-    if (traders.every(q => q.name != name)) {
-      break
+  var rndName = () => {
+    var name = itemNames.rnd()
+    for (var i = 0; i < 100; i++) {
+      if (items.every(q => q.name != name)) {
+        break
+      }
+      name = questNames.rnd()
     }
-    name = questNames.rnd()
+    return name
   }
+  var name = params.name || rndName()
   
   var randomness = 0.3 + 0.7 * Math.pow(params.level, 0.3)
-  var coolness = 0.3 + 0.7 * Math.pow(params.level, 0.3)
+  var coolness = gaussianRandom(0, 0.3 * randomness)
   var quality = gaussianRandom(0, 0.3 * randomness)
   var allEffects = {
     defense: 1.5,
@@ -24,20 +28,26 @@ item = (params={}) => {
     intelligence: 2
   }
   var effects = {}
-  var effectiveLevel = params.level + coolness + quality
-  var effectsCount = Math.clamp(Math.round(gaussianRandom(2, 0.3)))
-  var levelSplit = rndSplit(effectiveLevel, effectsCount)
-  Object.entries(allEffects).rndSubset(effectsCount).forEach((e, i) => {
-    effects[e[0]] = Math.pow(e[1], levelSplit[i])
-  })
+  if (params.effects) {
+    effects = params.effects
+  } else {
+    var effectiveLevel = params.level + coolness + quality
+    var effectsCount = Math.clamp(Math.round(gaussianRandom(2, 0.3)), 1, 4)
+    var levelSplit = rndSplit(effectiveLevel, effectsCount)
+    Object.entries(allEffects).rndSubset(effectsCount).forEach((e, i) => {
+      effects[e[0]] = Math.pow(e[1], levelSplit[i])
+    })
+  }
   
   Object.entries(effects).forEach(e => {
     var effectLine = instantiate('effectLineSample')
     panel.find('.effects').append(effectLine)
     setFormattedText(effectLine.find('.skill'), e[0])
-    setFormattedText(effectLine.find('.value'), e[1])
+    setFormattedText(effectLine.find('.value'), large(e[1]))
   })
-  var cost = Math.round(10 * Math.pow(2, params.level + coolness))
+  
+  var cost = params.cost || Math.round(10 * Math.pow(2, params.level + coolness))
+  
   setFormattedText(panel.find('.cost'), large(cost))
   setFormattedText(tab.find('.cost'), large(cost))
   setFormattedText(panel.find('.name'), name)
@@ -89,9 +99,7 @@ item = (params={}) => {
       }
     },
     save: function() {
-      savedata.quests.push(Object.assign({
-        heroIndex: heroes.indexOf(this.hero)
-      }, _.omit(this, 'hero', 'heroIndex')))
+      savedata.items.push(this)
     },
     claimReward: function() {
       resources.gold.value += this.effectiveGold()

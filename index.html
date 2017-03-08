@@ -78,7 +78,7 @@
     </div>   
   </div>
   <div class="row">
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs sections">
       <li class="active"><a data-toggle="pill" href=".questsSection">Quests</a></li>
       <li><a data-toggle="pill" href=".itemsSection">Items</a></li>
       <li><a data-toggle="pill" href=".marketplaceSection">Marketplace</a></li>
@@ -281,51 +281,17 @@
             </div>
             <div class="panel-body">
               <table class="table">
-                <tbody>
+                <tbody class="effects">
                   <tr>
                     <td class="col-md-4"><b>Level</b></td>
                     <td class="level text-right">?</td>
                   </tr>
                   <tr>
-                    <td class="col-md-4"><b>Duration</b></td>
-                    <td class="text-right">
-                      <span class="started">
-                        <span class = "spentDuration">?</span> / <span class = "effectiveDuration">?</span>
-                      </span>
-                      <span class="notStarted">
-                        <span class="duration">?</span>
-                        <span class="man">
-                          (<span class = "effectiveDuration">?</span>)
-                        </span>
-                      </span>
-                    </td>
+                    <td class="col-md-4"><b>Cost</b></td>
+                    <td class="text-right"><span class="cost">?</span> gold</td>
                   </tr>
-                  <tr>
-                    <td class="col-md-4"><b>Danger</b></td>
-                    <td class="text-right">
-                      <span class="danger">?</span>
-                      <span class="man">
-                        (<span class = "deathChance">?</span>)
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="col-md-4"><b>Experience</b></td>
-                    <td class="text-right">
-                      <span class="experience">?</span>
-                      <span class="man">
-                        (<span class = "effectiveExperience">?</span>)
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="col-md-4"><b>Gold</b></td>    
-                    <td class="text-right">
-                      <span class="gold">?</span>
-                      <span class="man">
-                        (<span class = "effectiveGold">?</span>)
-                      </span>
-                    </td>
+                  <tr class="hidden effectLineSample">
+                    <td class="col-md-12" colspan=2>x<span class="value">?</span> <b class="skill">?</b></td>
                   </tr>
                 </tbody>
               </table>

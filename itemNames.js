@@ -71,7 +71,6 @@ Enchanted Mango
 Lotus Orb
 Nightfall Striders
 Guardian Greaves
-Observer and Sentry Wards
 Solar Crest
 Rune Breaker
 Nature's Mend

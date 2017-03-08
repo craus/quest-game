@@ -115,3 +115,39 @@ a.bought{
 .right {
   text-align: right;
 }
+
+.btn.buy {
+  background-color: rgb(160, 160, 0)
+}
+.btn.buy:hover {
+  background-color: rgb(192, 192, 0)
+}
+.btn.buy.disabled, .btn.buy[disabled] {
+  background-color: rgb(128, 128, 0)
+}
+
+.btn.equip {
+  background-color: rgb(64, 64, 192);
+  border-color: rgb(64, 64, 192)
+}
+.btn.equip:hover {
+  background-color: rgb(96, 96, 192);
+  border-color: rgb(96, 96, 192)
+}
+.btn.equip.disabled, .btn.equip[disabled] {
+  background-color: rgb(64, 64, 128);
+  border-color: rgb(64, 64, 128);
+}
+
+.btn.unequip {
+  background-color: rgb(64, 64, 192);
+  border-color: rgb(64, 64, 192)
+}
+.btn.unequip:hover {
+  background-color: rgb(96, 96, 192);
+  border-color: rgb(96, 96, 192)
+}
+.btn.unequip.disabled, .btn.unequip[disabled] {
+  background-color: rgb(64, 64, 128);
+  border-color: rgb(64, 64, 128);
+}

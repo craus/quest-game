@@ -1,13 +1,22 @@
-function buyEvent(params) {
-  var rewardEvent = (params.reward.run != undefined) ? params.reward : createEvent({reward: params.reward})
-  return unlinearBuyEvent($.extend({
-    run: function(cnt) {
-      params.cost.forEach(function(cost) {
-        var resource = cost[0]
-        var amount = cost[1]
-        resource.value -= amount.get() * cnt
+buyEvent = (params={}) => {
+  var result = Object.assign({
+    available: function() {
+      return Object.entries(params.cost).every(c => resources[c[0]]() >= c[1]())
+    },
+    buy: function() {
+      if (!this.available()) {
+        return
+      }
+      Object.entries(params.cost).forEach(c => resources[c[0]].value -= c[1]())
+      params.reward()
+    },
+    paint: function() {
+      enable($('.'+params.id), this.available())
+      Object.entries(params.cost).forEach(c => {
+        setFormattedText($('.#{0} > .cost.#{1}'.i(params.id, resources[c[0]].id)), large(c[1]()))
       })
-      rewardEvent.run(cnt)
-    },      
-  }, params))
+    }
+  }, params)
+  $('.'+params.id).click(() => result.buy())
+  return result
 }

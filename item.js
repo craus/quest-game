@@ -21,6 +21,7 @@ item = (params={}) => {
   var randomness = 0.3 + 0.7 * Math.pow(params.level, 0.3)
   var coolness = gaussianRandom(0, 0.3 * randomness)
   var quality = gaussianRandom(0, 0.3 * randomness)
+  var itemNerf = 0.4
   var allEffects = {
     defense: 1.5,
     speed: 2,
@@ -35,7 +36,7 @@ item = (params={}) => {
     var effectsCount = Math.clamp(Math.round(gaussianRandom(2, 0.3)), 1, 4)
     var levelSplit = rndSplit(effectiveLevel, effectsCount)
     Object.entries(allEffects).rndSubset(effectsCount).forEach((e, i) => {
-      effects[e[0]] = Math.pow(e[1], levelSplit[i])
+      effects[e[0]] = Math.pow(e[1], levelSplit[i]*itemNerf)
     })
   }
   

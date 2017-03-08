@@ -47,7 +47,8 @@ function createGame(params) {
     gold: variable(0, 'gold'),
     time: variable(0, 'time'),
     questLimit: variable(1, 'questLimit'),
-    heroLimit: variable(1, 'heroLimit')
+    heroLimit: variable(1, 'heroLimit'),
+    traderLimit: variable(0, 'traderLimit')
   }
   
   matchable = () => {
@@ -84,9 +85,6 @@ function createGame(params) {
   items = []
   if (savedata.items) {
     items = savedata.items.map(item)
-  } else {
-    items.push(item({level: 0}))
-    items.push(item({level: 1}))
   }
   
   heroes.forEach(h => h.quest = quests[h.questIndex])
@@ -130,6 +128,16 @@ function createGame(params) {
       }, 
       reward: {
         heroLimit: () => 1
+      }
+    }),
+    buyTraderSlot: buyEvent({
+      id: 'buyTraderSlot',
+      cost: {
+        gold: () => 25 * (Math.pow(2, resources.traderLimit()))
+      }, 
+      reward: () => {
+        items.push(item({level: 1}))
+        resources.traderLimit.value += 1
       }
     })
   }

@@ -115,7 +115,7 @@ function createGame(params) {
     buyQuestSlot: buy({
       id: 'buyQuestSlot',
       cost: {
-        gold: () => 25 * (Math.pow(2, resources.questLimit()-1))
+        gold: () => 25 * (Math.pow(4, resources.questLimit()-1))
       }, 
       reward: {
         questLimit: () => 1
@@ -124,7 +124,7 @@ function createGame(params) {
     buyHeroSlot: buy({
       id: 'buyHeroSlot',
       cost: {
-        gold: () => 25 * (Math.pow(2, resources.heroLimit()-1))
+        gold: () => 25 * (Math.pow(4, resources.heroLimit()-1))
       }, 
       reward: {
         heroLimit: () => 1
@@ -133,7 +133,7 @@ function createGame(params) {
     buyTraderSlot: buyEvent({
       id: 'buyTraderSlot',
       cost: {
-        gold: () => 25 * (Math.pow(2, resources.traderLimit()))
+        gold: () => 100 * (Math.pow(4, resources.traderLimit()))
       }, 
       reward: () => {
         items.push(item({level: 1}))

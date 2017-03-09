@@ -45,7 +45,7 @@ item = (params={}) => {
     setFormattedText(effectLine.find('.value'), large(e[1]))
   })
   
-  var cost = params.cost || Math.round(10 * Math.pow(2, params.level + coolness))
+  var cost = params.cost || Math.round(50 * Math.pow(2, params.level + coolness))
   
   setFormattedText(panel.find('.cost'), large(cost))
   setFormattedText(tab.find('.cost'), large(cost))
@@ -88,7 +88,7 @@ item = (params={}) => {
     paint: function() {
       panel.find('.buy').toggle(!this.bought)
       enable(panel.find('.buy'), resources.gold() >= this.cost)
-      enable(panel.find('.equip'), selectedHero && !selectedHero.quest)
+      enable(panel.find('.equip'), selectedHero && !selectedHero.quest && (!this.hero || !this.hero.quest))
       enable(panel.find('.unequip'), !!this.hero && !this.hero.quest)
       panel.find('.equip').toggle(this.bought && this.hero != selectedHero)
       panel.find('.unequip').toggle(!!this.hero)
@@ -127,6 +127,9 @@ item = (params={}) => {
     equip: function() {
       if (selectedHero.items.length >= 2) {
         selectedHero.items[0].unequip()
+      }
+      if (this.equipped()) {
+        this.unequip()
       }
       this.hero = selectedHero
       selectedHero.items.push(this)

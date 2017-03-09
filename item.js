@@ -1,10 +1,6 @@
 item = (params={}) => {
   var panel = instantiate('itemSample')
   var tab = instantiate('itemTabSample')
-  if (params.instantiate != false) {
-    $('.items').append(panel)
-    $('.itemTabs').append(tab)
-  }
   
   var rndName = () => {
     var name = itemNames.rnd()
@@ -61,6 +57,8 @@ item = (params={}) => {
   var result = Object.assign({
     name: name,
     cost: cost,
+    tab: tab, 
+    panel: panel,
     effects: effects,
     bought: false,
     sellCost: function() {
@@ -92,7 +90,7 @@ item = (params={}) => {
       enable(panel.find('.buy'), resources.gold() >= this.cost)
       enable(panel.find('.equip'), selectedHero && !selectedHero.quest)
       enable(panel.find('.unequip'), !!this.hero && !this.hero.quest)
-      panel.find('.equip').toggle(this.bought && this.hero != selectedHero && selectedHero.items.length < 2)
+      panel.find('.equip').toggle(this.bought && this.hero != selectedHero)
       panel.find('.unequip').toggle(!!this.hero)
       panel.find('.sell').toggle(this.bought && !this.hero)
       panel.find('.discard').toggle(!this.bought && this.level > minLevel)
@@ -105,6 +103,14 @@ item = (params={}) => {
         setFormattedText(panel.find('.selectedHeroName'), selectedHero.name)
       }
       
+      if (this.equipped() && !!this.hero.quest) {
+        this.move('outside')
+      } else if (this.bought) {
+        this.move('keep')
+      } else {
+        this.move('market')
+      }
+      
       var a = tab.find('a')
       a.toggleClass('equipped', this.equipped() && this.hero != selectedHero)
       a.toggleClass('equippedByCurrent', this.hero == selectedHero)
@@ -113,9 +119,15 @@ item = (params={}) => {
     buy: function() {
       resources.gold.value -= this.cost
       this.bought = true
-      items.push(item({level: this.level+1}))
+      this.move('keep')
+      var newItem = item({level: this.level+1})
+      newItem.select()
+      items.push(newItem)
     },
     equip: function() {
+      if (selectedHero.items.length >= 2) {
+        selectedHero.items[0].unequip()
+      }
       this.hero = selectedHero
       selectedHero.items.push(this)
     },
@@ -128,13 +140,23 @@ item = (params={}) => {
       this.destroy()
     },
     discard: function() {
-      items.push(item({level: this.level-1}))
+      var newItem = item({level: this.level-1})
+      items.push(newItem)
+      newItem.select()
+      
       this.destroy()
     },
     save: function() {
       savedata.items.push(Object.assign({
         heroIndex: heroes.indexOf(this.hero)
-      }, _.omit(this, 'hero', 'heroIndex')))
+      }, _.omit(this, 'hero', 'heroIndex', 'tab', 'panel')))
+    },
+    move: function(set) {
+      if (panel.parent().hasClass(set)) {
+        return
+      }
+      $('.#{0}'.i(set)).append(panel)
+      $('.#{0}Tabs'.i(set)).append(tab)
     },
     destroy: function() {      
       if (this.equipped()) {
@@ -147,7 +169,7 @@ item = (params={}) => {
       tab.remove()
       items.splice(items.indexOf(this), 1)
     }
-  }, params)
+  }, _.omit(params, 'tab', 'panel'))
   
   panel.find('.buy').click(() => result.buy())
   panel.find('.equip').click(() => result.equip())

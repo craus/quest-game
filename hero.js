@@ -123,6 +123,7 @@ hero = (params={}) => {
       setFormattedText(panel.find('.experienceToLevelUp'), large(this.experienceToLevelUp()))
       
       setFormattedText(panel.find('.itemCount'), this.items.length)
+      setFormattedText(panel.find('.itemNames'), this.items.map(i => i.name).join(', '))
       
       panel.find('.equipped').toggle(this.items.length > 0)
       

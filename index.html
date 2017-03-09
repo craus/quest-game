@@ -80,14 +80,15 @@
   <div class="row">
     <ul class="nav nav-tabs sections">
       <li class="active"><a data-toggle="pill" href=".questsSection">Quests</a></li>
-      <li><a data-toggle="pill" href=".itemsSection">Items</a></li>
+      <li><a data-toggle="pill" href=".outsideSection">Outside</a></li>
+      <li><a data-toggle="pill" href=".itemsSection">Keep</a></li>
       <li><a data-toggle="pill" href=".marketplaceSection">Marketplace</a></li>
     </ul>
   </div>
   <div class="row centered">
     <div class="col-sm-2">
       <h2><span class="name">Heroes</span></h2>
-      <ul class="nav nav-pills nav-stacked heroTabs">
+      <ul class="nav nav-pills nav-stacked heroTabs pre-scrollable">
         <li class="heroTabSample hidden">
           <a class="left">
             <div>
@@ -177,7 +178,7 @@
                   <tr class="heroItems equipped">
                     <td class="col-md-4"><b>Items</b></td>
                     <td class="text-right">
-                      <span class="itemCount">?</span>/2
+                      <span class="itemNames"></span>
                     </td>
                   </tr>
                 </tbody>
@@ -280,7 +281,13 @@
           </div>
         </div>
       </div>
-      <div class="tab-content fade tab-pane marketplaceSection items">
+      <div class="tab-content fade tab-pane outsideSection outside">
+        <h2><span class="name">Item</span></h2>
+      </div>
+      <div class="tab-content fade tab-pane itemsSection keep">
+        <h2><span class="name">Item</span></h2>
+      </div>
+      <div class="tab-content fade tab-pane marketplaceSection market">
         <h2><span class="name">Item</span></h2>
         <div class="tab-pane fade itemSample">
           <div class="panel panel-default panel-readiness">
@@ -330,7 +337,7 @@
     <div class="col-sm-2 tab-content">
       <div class="tab-pane fade in active questsSection">
         <h2><span class="name">Quests</span></h2>
-        <ul class="nav nav-pills nav-stacked questTabs">
+        <ul class="nav nav-pills nav-stacked questTabs pre-scrollable">
           <li class="questTabSample hidden">
             <a class="left">
               <table>
@@ -360,9 +367,19 @@
           <span class="questChance">?</span> → <span class="questChanceUp">?</span> (<span class="gold cost">?</span>&nbsp;gold)
         </button>
       </div>
+      <div class="tab-pane fade outsideSection">
+        <h2><span class="name">Outside</span></h2>
+        <ul class="nav nav-pills nav-stacked outsideTabs">
+        </ul>
+      </div>
+      <div class="tab-pane fade itemsSection">
+        <h2><span class="name">Keep</span></h2>
+        <ul class="nav nav-pills nav-stacked keepTabs pre-scrollable" data-spy="scroll" style="position:relative">
+        </ul>
+      </div>
       <div class="tab-pane fade marketplaceSection">
-        <h2><span class="name">Items</span></h2>
-        <ul class="nav nav-pills nav-stacked itemTabs">
+        <h2><span class="name">Market</span></h2>
+        <ul class="nav nav-pills nav-stacked marketTabs">
           <li class="itemTabSample hidden">
             <a class="left">
               <table>

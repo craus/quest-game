@@ -181,7 +181,10 @@ noSmall = function(x) {
 }
 const Format = {
   time: function(x) {
-    return '#{0}&nbsp;s'.i(large(x))
+    if (x >= Number.POSITIVE_INFINITY) {
+      return '#{0}&nbsp;s'.i(large(x))
+    }
+    return moment.duration(x,'s').format("hh:mm:ss", { trim: false })
   },
   percent: function(x) {
     return '#{0}%'.i(Math.round(x*100))

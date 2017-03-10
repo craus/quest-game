@@ -56,387 +56,97 @@
   <script src="item.js"></script>
   <script src="trader.js"></script>
   
+  
+  <script src="ability.js"></script>
+  <script src="unit.js"></script>
+  
   <script src="init.js"></script>
 </head>
 
 <body>
 
-<div class="container-fluid">
-  <br>
-  <div class="row centered"> 
-    <div class="col-sm-6">       
-      <div class="panel panel-default panel-readiness">
-        <div class="panel-body big left">
-          <span class="name">Time:</span> <span class="time value">?</span> 
-        </div>
-      </div>   
-    </div>
-    <div class="col-sm-6">       
-      <div class="panel panel-default panel-readiness">
-        <div class="panel-body big right">
-          <span class="gold value">?</span> <span class="name">Gold</span>
-        </div>
-      </div>   
-    </div>   
+<div class="container">
+  <div class="centered">
+    <h2><span class="selectedUnit name">???</span></h2>
   </div>
   <div class="row">
-    <ul class="nav nav-tabs sections">
-      <li class="active"><a data-toggle="pill" href=".questsSection">Quests</a></li>
-      <li><a data-toggle="pill" href=".outsideSection">Outside</a></li>
-      <li><a data-toggle="pill" href=".itemsSection">Keep</a></li>
-      <li><a data-toggle="pill" href=".marketplaceSection">Marketplace</a></li>
-    </ul>
-  </div>
-  <div class="row hidden">
     <div class="col-sm-6 centered">
-      <ul class="nav nav-pills heroesSections">
-        <li class="active"><a data-toggle="pill" href=".idleHeroes">Idle</a></li>
-        <li><a data-toggle="pill" href=".outsideHeroes">Outside</a></li>
-        <li><a data-toggle="pill" href=".completedHeroes">Completed</a></li>
-        <li><a data-toggle="pill" href=".failedHeroes">Dead</a></li>
-      </ul>
+      HEALTH: <span class="selectedUnit hp">??</span>/<span class="selectedUnit maxHp">??</span>
+      <div class="progress progress-health">
+        <div class="progress-bar selectedUnit hpBar notransition" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+          <span class="sr-only"></span>
+        </div>
+      </div>
+    </div>   
+    <div class="col-sm-6 centered">
+      MANA: <span class="selectedUnit mana">??</span>/<span class="selectedUnit maxMana">??</span>
+      <div class="progress progress-mana">
+        <div class="progress-bar selectedUnit manaBar notransition" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+          <span class="sr-only"></span>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="row centered">
-    <div class="col-sm-2">
-      <h2><span class="name">Heroes</span></h2>
-      <ul class="nav nav-pills nav-stacked heroTabs pre-scrollable">
-        <li class="heroTabSample hidden">
-          <a class="left">
-            <div>
-              <table>
-                <tr>
-                  <td width="35%">
-                    <span class="badge big level">5</span>
-                  </td>
-                  <td>
-                    <div>
-                      <span class="name">?</span>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-            </div>
-            <div>
-              <small class="status">In progress</small>
-            </div>
-          </a>
-        </li>
-      </ul>
-      <button tabindex="-1" class="btn btn-default nohover disabled status btn-block wordwrap">
-        +1 Hero each ~<span class="heroesArrival period">?</span>
-      </button>
-      <button tabindex="-1" class="btn btn-default nohover buyHeroSlot btn-block wordwrap">
-        <span class="heroesArrival period">?</span> → <span class="heroesArrivalPeriodUp">?</span> (<span class="gold cost">?</span>&nbsp;gold)
-      </button>     
-    </div>    
-    <div class="col-sm-4">
-      <div class="tab-content heroes">
-        <h2><span class="name">Hero</span></h2>
-        <div class="tab-pane fade heroSample hidden">
-          <div class="panel panel-default panel-readiness">
-            <div class="panel-heading"><h2><span class="name">?</span></h2></div>
-            <div class="panel-body">            
-              <table class="table">
-                <tbody>
-                  <tr>
-                    <td colspan=2 class="status text-right col-md-12">?</td>
-                  </tr>
-                  <tr>
-                    <td class="col-md-4"><b>Level</b></td>
-                    <td class="text-right">
-                      <span class="level">?</span>
-                      <span class="skillPointsNotZero">
-                        (<span class="skillPoints">?</span>&nbsp;skill&nbsp;points)
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="col-md-4"><b>Experience</b></td>
-                    <td class="text-right"><span class="experience">?</span> / <span class = "experienceToLevelUp">?</span></td>
-                  </tr>
-                  <tr class="speed">
-                    <td class="col-md-4"><b>Speed</b></td>
-                    <td class="text-right">
-                      <span class="value">?</span>
-                      <a class="skillUp">→ <b class="skillUpValue">+</b></a>
-                      <span class="equipped">(<span class="effectiveValue">?</span>)</span>
-                    </td>
-                  </tr>
-                  <tr class="defense">
-                    <td class="col-md-4"><b>Defense</b></td>
-                    <td class="text-right">
-                      <span class="value">?</span>
-                      <a class="skillUp">→ <b class="skillUpValue">+</b></a>
-                      <span class="equipped">(<span class="effectiveValue">?</span>)</span>
-                    </td>
-                  </tr>
-                  <tr class="wealth">
-                    <td class="col-md-4"><b>Wealth</b></td>
-                    <td class="text-right">
-                      <span class="value">?</span>
-                      <a class="skillUp">→ <b class="skillUpValue">+</b></a>
-                      <span class="equipped">(<span class="effectiveValue">?</span>)</span>
-                    </td>
-                  </tr>
-                  <tr class="intelligence">
-                    <td class="col-md-4"><b>Intelligence</b></td>
-                    <td class="text-right">
-                      <span class="value">?</span>
-                      <a class="skillUp">→ <b class="skillUpValue">+</b></a>
-                      <span class="equipped">(<span class="effectiveValue">?</span>)</span>
-                    </td>
-                  </tr>
-                  <tr class="heroItems equipped">
-                    <td class="col-md-4"><b>Items</b></td>
-                    <td class="text-right">
-                      <span class="itemNames"></span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="panel-body">
-              <div class="btn-group btn-group-justified">
-                <div class="btn-group">
-                  <button tabindex="-1" class="btn btn-default nohover start">Start</button>
-                  <button tabindex="-1" class="btn btn-danger nohover abandon">Abandon</button>
-                  <button tabindex="-1" class="btn btn-danger nohover bury">Bury</button>
-                  <button tabindex="-1" class="btn btn-default nohover claimReward">Claim Reward</button>
-                </div>
-              </div>
-            </div>
-          </div>  
-        </div>
+  
+  <div class="row units centered">
+    
+    <h2>Battle field</h2>
+    <div class="panel panel-primary unitPanel unitSample hidden">
+      <div class="panel-heading">
+        <h4><span class="name">???</span></h4>
       </div>
-    </div>
-    <div class="col-sm-4 tab-content">
-      <div class="tab-content tab-pane questsSection fade quests in active">
-        <h2><span class="name">Quest</span></h2>
-        <div class="tab-pane fade questSample hidden">
-          <div class="panel panel-default panel-readiness">
-            <div class="panel-heading vcentered" style="min-height: 120">
-              <h2 class="vcentered">
-                <span class="name">?</span>
-              </h2>
-            </div>
-            <div class="panel-body">
-              <table class="table">
-                <tbody>
-                  <tr>
-                    <td colspan=2 class="text-right col-md-12">
-                      <span class="status">?</span>
-                      <span class="whenInProgress">
-                        (<span class="percent">?</span>)
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="col-md-4"><b>Level</b></td>
-                    <td class="level text-right">?</td>
-                  </tr>
-                  <tr>
-                    <td class="col-md-4"><b>Duration</b></td>
-                    <td class="text-right">
-                      <span class="started">
-                        <span class = "spentDuration">?</span> / <span class = "effectiveDuration">?</span>
-                      </span>
-                      <span class="notStarted">
-                        <span class="duration">?</span>
-                        <span class="man">
-                          (<span class = "effectiveDuration">?</span>)
-                        </span>
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="col-md-4"><b>Danger</b></td>
-                    <td class="text-right">
-                      <span class="danger">?</span>
-                      <span class="man">
-                        (<span class = "deathChance">?</span>)
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="col-md-4"><b>Experience</b></td>
-                    <td class="text-right">
-                      <span class="experience">?</span>
-                      <span class="man">
-                        (<span class = "effectiveExperience">?</span>)
-                      </span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="col-md-4"><b>Gold</b></td>    
-                    <td class="text-right">
-                      <span class="gold">?</span>
-                      <span class="man">
-                        (<span class = "effectiveGold">?</span>)
-                      </span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="panel-body">
-              <div class="btn-group btn-group-justified">
-                <div class="btn-group">
-                  <button tabindex="-1" class="btn btn-default nohover start">Start</button>
-                  <button tabindex="-1" class="btn btn-danger nohover abandon">Abandon</button>
-                  <button tabindex="-1" class="btn btn-danger nohover discard">Discard</button>
-                  <button tabindex="-1" class="btn btn-danger nohover buryHero">Bury hero</button>
-                  <button tabindex="-1" class="btn btn-default nohover claimReward">Claim Reward</button>
-                </div>
-              </div>          
+      <div class="panel-body">
+        <div class="col-sm-12 centered">
+          HEALTH: <span class="hp">??</span>/<span class="maxHp">??</span>
+          <div class="progress progress-health">
+            <div class="progress-bar hpBar notransition" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+              <span class="sr-only"></span>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="tab-content fade tab-pane outsideSection outside">
-        <h2><span class="name">Item</span></h2>
-      </div>
-      <div class="tab-content fade tab-pane itemsSection keep">
-        <h2><span class="name">Item</span></h2>
-      </div>
-      <div class="tab-content fade tab-pane marketplaceSection market">
-        <h2><span class="name">Item</span></h2>
-        <div class="tab-pane fade itemSample">
-          <div class="panel panel-default panel-readiness">
-            <div class="panel-heading vcentered" style="min-height: 120">
-              <h2 class="vcentered">
-                <span class="name">?</span>
-              </h2>
-            </div>
-            <div class="panel-body">
-              <table class="table">
-                <tbody class="effects">
-                  <tr>
-                    <td class="col-md-4"><b>Level</b></td>
-                    <td class="level text-right">?</td>
-                  </tr>
-                  <tr>
-                    <td class="col-md-4"><b>Cost</b></td>
-                    <td class="text-right"><span class="cost">?</span> gold</td>
-                  </tr>
-                  <tr class="equipped">
-                    <td class="col-md-4"><b>Equipped by</b></td>
-                    <td class="text-right"><span class="heroName">?</span></td>
-                  </tr>
-                  <tr class="hidden effectLineSample">
-                    <td class="col-md-12" colspan=2>x<span class="value">?</span> <b class="skill">?</b></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="panel-body">
-              <div class="btn-group btn-group-justified">
-                <div class="btn-group">
-                  <button tabindex="-1" class="btn btn-default nohover buy">Buy</button>
-                  <button tabindex="-1" class="btn btn-danger nohover equip">Equip to <span class="selectedHeroName">?</span></button>
-                  <button tabindex="-1" class="btn btn-danger nohover unequip">
-                    Unequip from <span class="heroName">?</span>
-                  </button>
-                  <button tabindex="-1" class="btn btn-danger nohover sell">Sell</button>
-                  <button tabindex="-1" class="btn btn-danger nohover discard">Discard</button>
-                </div>
-              </div>          
+        </div>    
+        <div class="col-sm-12 centered">
+          MANA: <span class="mana">??</span>/<span class="maxMana">??</span>
+          <div class="progress progress-mana">
+            <div class="progress-bar manaBar notransition" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+              <span class="sr-only"></span>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-sm-2 tab-content">
-      <div class="tab-pane fade in active questsSection">
-        <h2><span class="name">Quests</span></h2>
-        <ul class="nav nav-pills nav-stacked questTabs pre-scrollable">
-          <li class="questTabSample hidden">
-            <a class="left">
-              <table>
-                <tr>
-                  <td width="35%">
-                    <span class="badge big level">??</span>
-                  </td>
-                  <td>
-                    <div>
-                      <span class="name">?</span>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-              <small class="centered status">???</small>
-              <br>
-              <small class="centered whenInProgress">
-                <span class="percent">?</span>
-              </small>
-            </a>
-          </li>
-        </ul>
-        <button tabindex="-1" class="btn btn-default nohover disabled status btn-block wordwrap">
-          <span class="questChance">?</span> extra quest chance
-        </button>
-        <button tabindex="-1" class="btn btn-default nohover buyQuestSlot btn-block wordwrap">
-          <span class="questChance">?</span> → <span class="questChanceUp">?</span> (<span class="gold cost">?</span>&nbsp;gold)
-        </button>
+  </div>
+  
+  <div class="row abilities centered">
+    
+    <h2>Abilities</h2>
+    <div class="panel panel-primary abilityPanel abilitySample hidden">
+      <div class="panel-heading">
+        <h4><span class="name">???</span></h4>
       </div>
-      <div class="tab-pane fade outsideSection">
-        <h2><span class="name">Outside</span></h2>
-        <ul class="nav nav-pills nav-stacked outsideTabs">
-        </ul>
+      <div class="panel-body">
+        <div class="col-sm-12 centered">
+          HEALTH: <span class="hp">??</span>/<span class="maxHp">??</span>
+          <div class="progress progress-health">
+            <div class="progress-bar hpBar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+              <span class="sr-only"></span>
+            </div>
+          </div>
+        </div>    
+        <div class="col-sm-12 centered">
+          MANA: <span class="mana">??</span>/<span class="maxMana">??</span>
+          <div class="progress progress-mana">
+            <div class="progress-bar manaBar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%">
+              <span class="sr-only"></span>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="tab-pane fade itemsSection">
-        <h2><span class="name">Keep</span></h2>
-        <ul class="nav nav-pills nav-stacked keepTabs pre-scrollable" data-spy="scroll" style="position:relative">
-        </ul>
-      </div>
-      <div class="tab-pane fade marketplaceSection">
-        <h2><span class="name">Market</span></h2>
-        <ul class="nav nav-pills nav-stacked marketTabs">
-          <li class="itemTabSample hidden">
-            <a class="left">
-              <table>
-                <tr>
-                  <td width="35%">
-                    <span class="badge big level">5</span>
-                  </td>
-                  <td>
-                    <div>
-                      <span class="name">?</span>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-              <small><span class="centered cost">???</span> gold</small>
-            </a>
-          </li>
-        </ul>
-        <button tabindex="-1" class="btn btn-default nohover buyTraderSlot btn-block wordwrap">
-          <span>More items</span> (<span class="gold cost">?</span>&nbsp;gold)
-        </button>
-      </div>
-    </div>  
+    </div>
   </div>
   
   <div class="row centered">
     <button class="btn btn-danger btn-lg" data-toggle="modal" data-target="#confirm-wipe-save">Wipe save</button>
     <br>
-  </div>
-</div>
-
-<div class="questLimitExceeded danger hidden" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-    
-      <div class="modal-header">
-        <h4 class="modal-title" id="myModalLabel">Too Many Quests</h4>
-      </div>
-  
-      <div class="modal-body">
-        <p>You exceeded your Quest Limit.</p>
-        <p>You should discard some Quests to continue.</p>
-        <p class="debug-url"></p>
-      </div>
-    </div>
   </div>
 </div>
   

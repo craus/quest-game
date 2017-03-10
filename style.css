@@ -151,3 +151,31 @@ a.bought{
   background-color: rgb(64, 64, 128);
   border-color: rgb(64, 64, 128);
 }
+.progress.progress-health {
+  background-color: rgb(224, 192, 192);
+  height: 24px;
+}
+.progress.progress-health .progress-bar{
+  background-color: rgb(224, 64, 64);
+}
+.progress.progress-mana {
+  background-color: rgb(192, 192, 224);
+  height: 24px;
+}
+.progress.progress-mana .progress-bar{
+  background-color: rgb(64, 64, 224);
+}
+.notransition {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
+  -ms-transition: none !important;
+  transition: none !important;
+}
+.unitPanel{
+  width: 20%;
+  margin: 4px;
+  display:inline-block;
+}
+.units {
+}

@@ -2,7 +2,7 @@ function createGame(params) {
   
   // Rules common things
     
-  var gameName = "heroes"
+  var gameName = "lastBattle"
   var saveName = gameName+"SaveData"
 
   if (localStorage[saveName] != undefined) {
@@ -21,16 +21,9 @@ function createGame(params) {
       return
     }
     savedata = {}
-    Object.values(resources).each('save')
-    savedata.quests = []
-    savedata.heroes = []
-    savedata.items = []
-    heroes.each('save')
-    quests.each('save')
-    items.each('save')
-    savedata.selectedHeroIndex = heroes.indexOf(selectedHero)
-    savedata.selectedQuestIndex = quests.indexOf(selectedQuest)
-    savedata.selectedItemIndex = items.indexOf(selectedItem)
+    savedata.units = []
+    units.each('save')
+    savedata.selectedUnitIndex = units.indexOf(selectedUnit)
     savedata.realTime = timestamp || Date.now()
     savedata.activeTab = $('.sections>.active>a').attr('href')
     savedata.activeTechTab = $('.techs>.active>a').attr('href')
@@ -43,140 +36,51 @@ function createGame(params) {
     location.reload()
   }
   
-  resources = {
-    gold: variable(0, 'gold'),
-    time: variable(0, 'time'),
-    questLimit: variable(1, 'questLimit'),
-    heroLimit: variable(1, 'heroLimit'),
-    traderLimit: variable(0, 'traderLimit')
-  }
+  hero = null
+  units = []
   
-  matchable = () => {
-    return !!selectedHero && !!selectedQuest && !selectedHero.quest && !selectedQuest.hero
-  }
-  matchHeroAndQuest = function() {
-    if (!matchable()) {
-      return
-    }
-    selectedHero.quest = selectedQuest
-    selectedQuest.hero = selectedHero
-    selectedQuest.start()
-  }
-  
-  heroes = []
-  $('.newHero').click(() => {
-    heroes.push(hero())
-  })
-  if (savedata.heroes) {
-    heroes = savedata.heroes.map(h => hero(h))
+  if (savedata.units) {
+    units = savedata.units.map(u => unit(u))
+    hero = units[0]
   } else {
-    heroes.push(hero())
-  }
-  
-  quests = []
-  if (savedata.quests) {
-    quests = savedata.quests.map(q => quest(q))
-  } else {
-    for (var i = 0; i < 1; i++) {
-      quests.push(quest({level: 0}))
-    }
-  }
-  
-  items = []
-  if (savedata.items) {
-    items = savedata.items.map(item)
-  }
-  
-  heroes.forEach(h => h.quest = quests[h.questIndex])
-  quests.forEach(q => q.hero = heroes[q.heroIndex])
-  heroes.forEach(h => h.items = [])
-  items.forEach(i => {
-    i.hero = heroes[i.heroIndex]
-    if (!!i.hero) {
-      i.hero.items.push(i)
-    }
-  })
-
-  selectedHero = heroes[savedata.selectedHeroIndex]
-  selectedQuest = quests[savedata.selectedQuestIndex]
-  selectedItem = items[savedata.selectedItemIndex]
-  
-  if (!!selectedHero) {
-    selectedHero.select()
-  }
-  if (!!selectedQuest) {
-    selectedQuest.select()
-  }
-  if (!!selectedItem) {
-    selectedItem.select()
-  }
-  
-  buys = {
-    buyQuestSlot: buy({
-      id: 'buyQuestSlot',
-      cost: {
-        gold: () => 25 * (Math.pow(4, resources.questLimit()-1))
-      }, 
-      reward: {
-        questLimit: () => 1
-      }
-    }),
-    buyHeroSlot: buy({
-      id: 'buyHeroSlot',
-      cost: {
-        gold: () => 25 * (Math.pow(4, resources.heroLimit()-1))
-      }, 
-      reward: {
-        heroLimit: () => 1
-      }
-    }),
-    buyTraderSlot: buyEvent({
-      id: 'buyTraderSlot',
-      cost: {
-        gold: () => 100 * (Math.pow(4, resources.traderLimit()))
-      }, 
-      reward: () => {
-        items.push(item({level: 1}))
-        resources.traderLimit.value += 1
+    hero = unit({
+      name: "You",
+      hp: 100, 
+      maxHp: 100,
+      mana: 80, 
+      maxMana: 80,
+      player: true,
+      abilities: {
+        skipMove: ability({
+        }),
+        physicalStrike: ability({
+        })
       }
     })
+    units.push(hero)
+    units.push(unit({
+      name: "Monster",
+      hp: 20,
+      maxHp: 35
+    }))
   }
+  selectedUnit = units[savedata.selectedUnitIndex] || hero
   
-  var heroesArrivalPeriod = (hl) => heroes.length == 0 ? 0 : (heroes.length < hl ? 30 : Number.POSITIVE_INFINITY)
-  
-  heroesArrival = poisson({
-    trigger: function() {
-      heroes.push(hero())
-    },
-    period: () => heroesArrivalPeriod(resources.heroLimit())
-  })
-  
-  var questChanceByLimit = (ql) => chances(Math.pow(4, ql), Math.pow(quests.length,2)*0.125*Math.pow(4, quests.length))
-  questChance = () => questChanceByLimit(resources.questLimit())
-  
-  
+  if (!!selectedUnit) {
+    selectedUnit.select()
+  }
+    
   savedata.activeTab = savedata.activeTab || '#heroes'
   
   $('a[href="' + savedata.activeTab + '"]').tab('show')
   $('a[href="' + savedata.activeTechTab + '"]').tab('show')
   
-  spellcaster = {
+  game = {
     paint: function() {
       debug.profile('paint')
       
-      Object.values(resources).each('paint')
-      heroes.each('paint')
-      quests.each('paint')
-      items.each('paint')
-      setFormattedText($('.heroCount'), heroes.length)
-      setFormattedText($('.questCount'), quests.length)
-      Object.values(buys).each('paint')
-      
-      setFormattedText($('.heroesArrival.period'), Format.time(heroesArrival.period()))
-      setFormattedText($('.heroesArrivalPeriodUp'), Format.time(heroesArrivalPeriod(resources.heroLimit()+1)))
-      setFormattedText($('.questChance'), Format.percent(questChance()))
-      setFormattedText($('.questChanceUp'), Format.percent(questChanceByLimit(resources.questLimit()+1)))
-      
+      units.each('paint')
+            
       debug.unprofile('paint')
     },
     tick: function() {
@@ -184,16 +88,10 @@ function createGame(params) {
       var currentTime = Date.now()
       var deltaTime = (currentTime - savedata.realTime) / 1000
       
-      resources.time.value += deltaTime
-      heroesArrival.tick(deltaTime)
-      quests.each('tick', deltaTime)
-      if (quests.length < resources.questLimit()) {
-        quests.push(quest({level: 0}))
-      }
       
       save(currentTime)
       debug.unprofile('tick')
     }
   }
-  return spellcaster
+  return game
 }

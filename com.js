@@ -217,6 +217,28 @@ setSortableValue = function(el, value) {
     needResort = true
   }
 }
+//http://stackoverflow.com/questions/11131875/what-is-the-cleanest-way-to-disable-css-transition-effects-temporarily/16575811#16575811
+forceReflow = function(el) {
+  el.offsetHeight
+}
+skipAnimation = function(el) {
+  el.addClass("notransition")
+  el[0].offsetHeight
+  el.removeClass("notransition")
+}
+setProgress = function(el, value, max, params = {}) {
+  var old = el.attr('aria-valuenow')
+  var oldMax = el.attr('aria-valuemax')
+  if (old != value || oldMax != max) {
+    el.attr('aria-valuenow', value)
+    el.attr('aria-valuemax', max)
+    el.css("width", 100.0*value/max+"%")
+    el.html(params.text || Math.floor(value)+"%")
+    if (params.noAnimation) {
+      skipAnimation(el)
+    }
+  }
+}
 instantiate = function(name) {
   return $("." + name + ":first").clone().removeClass("hidden " + name)
 }

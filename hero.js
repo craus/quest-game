@@ -61,12 +61,12 @@ hero = (params={}) => {
     status: function() {
       if (this.quest) {
         if (this.quest.completed()) {
-          return "Completed \u2014 " + this.quest.name
+          return "#{0}<br>(#{1})".i(this.quest.name, 'Completed')
         }
         if (!this.alive) {
-          return "Dead \u2014 " + this.quest.name
+          return "#{0}<br>(#{1})".i(this.quest.name, 'Dead')
         }
-        return "On a quest \u2014 #{0} (#{1})".i(this.quest.name, Format.percent(this.quest.progress()))
+        return "#{0}<br>(#{1})".i(this.quest.name, Format.percent(this.quest.progress()))
       }
       if (this.selected) {
         return "Waiting for a quest"

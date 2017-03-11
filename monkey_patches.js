@@ -31,6 +31,14 @@ Array.prototype.rndSubset = function(cnt) {
   return result
 }
 
+Array.prototype.cyclicGet = function(index) {
+  return this[index%this.length]
+}
+
+Array.prototype.cyclicNext = function(el, delta=1) {
+  return this.cyclicGet(this.indexOf(el)+delta)
+}
+
 Array.prototype.find = function(criteria) {
   for (var i = 0; i < this.length; i++) {
     if (criteria(this[i])) {

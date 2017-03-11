@@ -57,6 +57,8 @@
   <script src="trader.js"></script>
   
   
+  <script src="r.js"></script>
+  <script src="abilities.js"></script>
   <script src="ability.js"></script>
   <script src="unit.js"></script>
   
@@ -90,7 +92,7 @@
   
   <div class="row units centered">
     
-    <h2>Battle field</h2>
+    <h2>Battle</h2>
     <div class="panel panel-default unitPanel unitSample hidden">
       <div class="panel-heading">
         <h4><span class="name">???</span></h4>
@@ -116,15 +118,19 @@
     </div>
   </div>
   
-  <div class="row abilities centered">
-    
-    <h2>Abilities</h2>
-    <div class="unitAbilitiesListSample hidden">
+  <div class="row abilities centered tab-content">
+    <div class="tab-pane fade unitAbilitiesListSample hidden">
       <h2>Abilities</h2>
-      <div class="panel panel-default abilityPanel abilitySample hidden">
-        <div class="panel-heading">
-          <h4><span class="name">???</span></h4>
-        </div>
+      <button class="panel panel-default abilityPanel abilitySample hidden">
+        <h4><span class="name">???</span></h4>
+      </button>
+    </div>
+  </div>  
+  
+  <div class="row centered">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <span class="abilityDescription">&nbsp;</span>
       </div>
     </div>
   </div>

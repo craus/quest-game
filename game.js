@@ -24,6 +24,7 @@ function createGame(params) {
     savedata.units = []
     units.each('save')
     savedata.selectedUnitIndex = units.indexOf(selectedUnit)
+    savedata.movingUnitIndex = units.indexOf(movingUnit)
     savedata.realTime = timestamp || Date.now()
     savedata.activeTab = $('.sections>.active>a').attr('href')
     savedata.activeTechTab = $('.techs>.active>a').attr('href')
@@ -52,10 +53,13 @@ function createGame(params) {
       player: true,
       abilities: [
         {
-          name: 'Skip move'
+          type: 'look'
         },
         {
-          name: 'Hit'
+          type: 'skipMove',
+        },
+        {
+          type: 'hit'
         }
       ]
     })
@@ -63,13 +67,25 @@ function createGame(params) {
     units.push(unit({
       name: "Monster",
       hp: 20,
-      maxHp: 35
+      maxHp: 35,
+      abilities: [
+        {
+          type: 'skipMove',
+        },
+        {
+          type: 'hit'
+        }
+      ]
     }))
   }
   selectedUnit = units[savedata.selectedUnitIndex] || hero
+  movingUnit = units[savedata.movingUnitIndex] || hero
   
   if (!!selectedUnit) {
     selectedUnit.select()
+  }
+  if (!!movingUnit) {
+    movingUnit.startMove()
   }
     
   savedata.activeTab = savedata.activeTab || '#heroes'

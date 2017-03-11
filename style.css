@@ -37,7 +37,7 @@ table {
   text-align: center;
 }
 .tooltip-inner {
-    white-space:pre-wrap;
+  white-space:pre-wrap;
 }
 .panel-default.panel-wisdom >.panel-heading{
 background: #ca950f; color: #fff; }
@@ -182,13 +182,36 @@ a.bought{
   margin: 4px;
   display:inline-block;
 }
+.abilityPanel {
+  background: rgb(240, 240, 240);  
+}
+.abilityPanel:hover {
+  background: rgb(210, 210, 210);
+}
+.abilityPanel.selected {
+  background: rgb(54, 170, 180); color: #fff; 
+}
+.abilityPanel.selected:hover {
+  background: rgb(54, 170, 180); color: #fff; 
+}
+.abilityPanel.disabled {
+  background: rgb(250, 250, 250); color: #888;
+  cursor: default;
+  outline: none;
+}
+.abilityPanel.selected.disabled {
+  background: rgb(104, 170, 180); color: #fff; 
+}
 .units {
 }
-.panel-default.unitPanel{
+.unitPanel, .abilityPanel{
   cursor:pointer;
 }
 .panel-default.unitPanel.selected{
   border-color: rgb(64, 192, 160);
+}
+.unitPanel.mover .name{
+  font-size: 200%;
 }
 .panel-default.unitPanel >.panel-heading{
   background: rgb(64, 192, 160); color: #fff; 
@@ -202,6 +225,9 @@ a.bought{
 .panel-default.unitPanel.selected:hover >.panel-heading{
   background: rgb(54, 170, 180); color: #fff; 
 }
-.panel-default.unitPanel:hover >.panel-body{
+.panel-default.unitPanel >.panel-body{
   background: rgb(240, 240, 240); 
+}
+.panel-default.unitPanel:hover >.panel-body{
+  background: rgb(210, 210, 210); 
 }

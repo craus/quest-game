@@ -18,18 +18,31 @@ unit = (params={}) => {
   params.mana = params.mana || 0
   params.maxMana = params.maxMana || 0
   params.abilities = params.abilities || []
-  params.abilities = params.abilities.map(ability)
+  params.abilities = params.abilities.map(a => Abilities[a.type](a))
   
   var unit = Object.assign({
     name: name,
+    selectedAbility: null,
     alive: function() { return this.hp > 0 },
     deselect: function() {
       panel.removeClass('selected')
+      abilitiesPanel.removeClass('in active')
     },
     select: function() {
       units.each('deselect')
       panel.addClass('selected')
+      abilitiesPanel.addClass('in active')
       selectedUnit = this
+    },
+    endMove: function() {
+      panel.removeClass('mover')
+      var next = units.cyclicNext(this)
+      next.startMove()
+      next.select()
+    },
+    startMove: function() {
+      panel.addClass('mover')
+      movingUnit = this
     },
     status: function() {
       return "Alive"
@@ -50,11 +63,13 @@ unit = (params={}) => {
         setProgress($('.selectedUnit.hpBar'), this.hp, this.maxHp, {text: this.hp})
         setProgress($('.selectedUnit.manaBar'), this.mana, this.maxMana, {text: this.mana})
       }
+      this.abilities.each('paint')
     },
     save: function() {
       savedata.units.push(Object.assign({
-      }, _.omit(this, 'abilities'), {
-        abilities: this.abilities.map(a => a.save())
+      }, _.omit(this, 'abilities', 'selectedAbility'), {
+        abilities: this.abilities.map(a => a.save()),
+        selectedAbilityIndex: this.abilities.indexOf(this.selectedAbility)
       }))
     },
     destroy: function() {
@@ -64,10 +79,20 @@ unit = (params={}) => {
   }, params)
   
   unit.abilities.forEach(a => {
+    a.unit = unit
     abilitiesPanel.append(a.panel)
   })
   
+  unit.selectedAbility = unit.abilities[unit.selectedAbilityIndex]
+  if (!!unit.selectedAbility) {
+    unit.selectedAbility.select()
+  }
+  
   setFormattedText(panel.find('.name'), unit.name)
-  panel.click(() => unit.select())
+  panel.click(() => {
+    if (!!movingUnit.selectedAbility) {
+      movingUnit.selectedAbility.setTarget(unit)
+    }
+  })
   return unit
 }

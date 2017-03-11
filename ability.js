@@ -25,9 +25,12 @@ ability = (params={}) => {
     paint: function() {
       panel.toggleClass('disabled', this.unit != movingUnit)
     },
+    description: function() {
+      return this.name
+    },
     showDescription: function() {
       //$('.abilityDescription').toggle(true)
-      setFormattedText($('.abilityDescription'), this.name)
+      setFormattedText($('.abilityDescription'), this.description())
     },
     hideDescription: function() {
       setFormattedText($('.abilityDescription'), '&nbsp;')

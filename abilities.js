@@ -16,8 +16,12 @@ Abilities = {
   hit: {
     name: "Hit",
     targetCount: 1,
+    description: function() {
+      return "Damage #{0}\u2014#{1}".i(this.damage.a, this.damage.b)
+    },
     cast: function() {
-      this.targets[0].select()
+      this.targets[0].receiveDamage(rndInt(this.damage.a, this.damage.b))
+      this.unit.endMove()
     }
   },
 

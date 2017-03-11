@@ -47,6 +47,15 @@ unit = (params={}) => {
     status: function() {
       return "Alive"
     },
+    receiveDamage: function(damage) {
+      this.hp -= damage;
+      if (this.hp <= 0) {
+        this.die()
+      }
+    },
+    die: function() {
+      this.destroy()
+    },
     paint: function() {
       setFormattedText(panel.find('.hp'), this.hp)
       setFormattedText(panel.find('.maxHp'), this.maxHp)
@@ -74,6 +83,10 @@ unit = (params={}) => {
     },
     destroy: function() {
       panel.remove()
+      abilitiesPanel.remove()
+      if (this == movingUnit) {
+        this.endMove()
+      }
       units.splice(units.indexOf(this), 1)
     }
   }, params)

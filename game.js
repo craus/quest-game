@@ -59,7 +59,8 @@ function createGame(params) {
           type: 'skipMove',
         },
         {
-          type: 'hit'
+          type: 'hit',
+          damage: R(12,20)
         }
       ]
     })
@@ -73,7 +74,8 @@ function createGame(params) {
           type: 'skipMove',
         },
         {
-          type: 'hit'
+          type: 'hit',
+          damage: R(12,20)
         }
       ]
     }))

@@ -231,3 +231,20 @@ a.bought{
 .panel-default.unitPanel:hover >.panel-body{
   background: rgb(210, 210, 210); 
 }
+.panel-default.unitPanel>.targetSign{
+  display: none;
+}
+.hit>.panel-default.unitPanel:hover>.targetSign{
+  display: block;
+}
+.helper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+.defs-only {
+  position: absolute;
+  height: 0; width: 0;
+  overflow: none;
+  left: -100%;
+}

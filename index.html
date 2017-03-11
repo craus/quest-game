@@ -63,9 +63,22 @@
   <script src="unit.js"></script>
   
   <script src="init.js"></script>
+  
+
 </head>
 
 <body>
+
+<svg class="defs-only">
+  <filter id="red-target" color-interpolation-filters="sRGB"
+          x="0" y="0" height="100%" width="100%">
+    <feColorMatrix type="matrix"
+      values="1 0 0 0  1 
+              0 1 0 0  0  
+              0 0 1 0  0 
+              0 0 0 0.5  0" />
+  </filter>
+</svg>
 
 <div class="container">
   <div class="centered">
@@ -93,7 +106,7 @@
   <div class="row units centered">
     
     <h2>Battle</h2>
-    <div class="panel panel-default unitPanel unitSample hidden">
+    <div class="panel panel-default unitPanel unitSample hidden" style="position:relative">
       <div class="panel-heading">
         <h4><span class="name">???</span></h4>
       </div>
@@ -114,6 +127,10 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="targetSign" style="position:absolute; top: 0px; left: 0px; width: 100%; height: 100%; vertical-align: middle">
+        <span class="helper"></span>
+        <img src="target.png" style="vertical-align: middle; filter: url(#red-target)"/>
       </div>
     </div>
   </div>

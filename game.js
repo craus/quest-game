@@ -105,6 +105,7 @@ function createGame(params) {
       debug.profile('paint')
       
       units.each('paint')
+      $('.units').toggleClass('hit', !!movingUnit && !!movingUnit.selectedAbility && movingUnit.selectedAbility.aim == "hit")
             
       debug.unprofile('paint')
     },

@@ -3,6 +3,7 @@ ability = (params={}) => {
 
   params.targetCount = params.targetCount || 0
   params.cost = params.cost || 0
+  params.aim = params.aim || "hit"
   
   var ability = Object.assign({
     panel: panel,
@@ -12,6 +13,7 @@ ability = (params={}) => {
     },
     deselect: function() {
       panel.removeClass('selected')
+      this.unit.selectedAbility = null
     },
     select: function() {
       if (this.targetCount == 0) {

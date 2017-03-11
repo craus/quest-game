@@ -38,11 +38,19 @@ unit = (params={}) => {
       panel.removeClass('mover')
       var next = units.cyclicNext(this)
       next.startMove()
-      next.select()
     },
     startMove: function() {
       panel.addClass('mover')
       movingUnit = this
+      
+      this.select()
+      if (!!this.selectedAbility) {
+        this.selectedAbility.deselect()
+      }
+      var look = this.abilities.find(a => a.type == 'look')
+      if (!!look) {
+        look.select()
+      }
     },
     status: function() {
       return "Alive"

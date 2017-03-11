@@ -2,6 +2,7 @@ Abilities = {
   look: {
     name: "Look",
     targetCount: 1,
+    aim: "eye",
     cast: function() {
       this.targets[0].select()
     }

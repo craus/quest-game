@@ -61,6 +61,11 @@ function createGame(params) {
         {
           type: 'hit',
           damage: R(12,20)
+        },
+        {
+          type: 'magicArrow',
+          cost: 25,
+          damage: R(20,30)
         }
       ]
     })

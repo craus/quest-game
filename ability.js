@@ -2,10 +2,14 @@ ability = (params={}) => {
   var panel = instantiate('abilitySample')
 
   params.targetCount = params.targetCount || 0
+  params.cost = params.cost || 0
   
   var ability = Object.assign({
     panel: panel,
     targets: [],
+    available: function() {
+      return this.unit.mana >= this.cost
+    },
     deselect: function() {
       panel.removeClass('selected')
     },
@@ -23,7 +27,7 @@ ability = (params={}) => {
       }, _.omit(this, 'panel', 'unit', 'targets'))
     },
     paint: function() {
-      panel.toggleClass('disabled', this.unit != movingUnit)
+      panel.toggleClass('disabled', this.unit != movingUnit || !this.available())
     },
     description: function() {
       return this.name
@@ -38,7 +42,7 @@ ability = (params={}) => {
     },
     setTarget: function(x) {
       this.targets.push(x)
-      if (this.targets.length == this.targetCount) {
+      if (this.targets.length == this.targetCount && this.available()) {
         this.cast()
         this.targets = []
       }

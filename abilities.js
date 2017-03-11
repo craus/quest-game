@@ -23,6 +23,18 @@ Abilities = {
       this.targets[0].receiveDamage(rndInt(this.damage.a, this.damage.b))
       this.unit.endMove()
     }
+  },  
+  magicArrow: {
+    name: "Magic Arrow",
+    targetCount: 1,
+    description: function() {
+      return 'Damage #{0}\u2014#{1}<br>Manacost #{2}'.i(this.damage.a, this.damage.b, this.cost)
+    },
+    cast: function() {
+      this.unit.mana -= this.cost
+      this.targets[0].receiveDamage(rndInt(this.damage.a, this.damage.b))
+      this.unit.endMove()
+    }
   },
 
 }

@@ -20,8 +20,12 @@ unit = (params={}) => {
     name: name,
     alive: function() { return this.hp > 0 },
     deselect: function() {
+      panel.removeClass('selected')
     },
     select: function() {
+      units.each('deselect')
+      panel.addClass('selected')
+      selectedUnit = this
     },
     status: function() {
       return "Alive"
@@ -54,5 +58,6 @@ unit = (params={}) => {
   }, params)
   
   setFormattedText(panel.find('.name'), unit.name)
+  panel.click(() => unit.select())
   return unit
 }

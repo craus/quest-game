@@ -179,3 +179,24 @@ a.bought{
 }
 .units {
 }
+.panel-default.unitPanel{
+  cursor:pointer;
+}
+.panel-default.unitPanel.selected{
+  border-color: rgb(64, 192, 160);
+}
+.panel-default.unitPanel >.panel-heading{
+  background: rgb(64, 192, 160); color: #fff; 
+}
+.panel-default.unitPanel:hover >.panel-heading{
+  background: rgb(54, 180, 170); color: #fff; 
+}
+.panel-default.unitPanel.selected >.panel-heading{
+  background: rgb(54, 170, 180); color: #fff; 
+}
+.panel-default.unitPanel.selected:hover >.panel-heading{
+  background: rgb(54, 170, 180); color: #fff; 
+}
+.panel-default.unitPanel:hover >.panel-body{
+  background: rgb(240, 240, 240); 
+}

@@ -50,12 +50,14 @@ function createGame(params) {
       mana: 80, 
       maxMana: 80,
       player: true,
-      abilities: {
-        skipMove: ability({
-        }),
-        physicalStrike: ability({
-        })
-      }
+      abilities: [
+        {
+          name: 'Skip move'
+        },
+        {
+          name: 'Hit'
+        }
+      ]
     })
     units.push(hero)
     units.push(unit({

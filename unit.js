@@ -1,6 +1,8 @@
 unit = (params={}) => {
   var panel = instantiate('unitSample')
   $('.units').append(panel)
+  var abilitiesPanel = instantiate('unitAbilitiesListSample')
+  $('.abilities').append(abilitiesPanel)
 
   var name = params.name || (() => {
     var name = names.rnd()
@@ -15,6 +17,8 @@ unit = (params={}) => {
   
   params.mana = params.mana || 0
   params.maxMana = params.maxMana || 0
+  params.abilities = params.abilities || []
+  params.abilities = params.abilities.map(ability)
   
   var unit = Object.assign({
     name: name,
@@ -49,13 +53,19 @@ unit = (params={}) => {
     },
     save: function() {
       savedata.units.push(Object.assign({
-      }, _.omit(this)))
+      }, _.omit(this, 'abilities'), {
+        abilities: this.abilities.map(a => a.save())
+      }))
     },
     destroy: function() {
       panel.remove()
       units.splice(units.indexOf(this), 1)
     }
   }, params)
+  
+  unit.abilities.forEach(a => {
+    abilitiesPanel.append(a.panel)
+  })
   
   setFormattedText(panel.find('.name'), unit.name)
   panel.click(() => unit.select())

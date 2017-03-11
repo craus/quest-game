@@ -177,6 +177,11 @@ a.bought{
   margin: 4px;
   display:inline-block;
 }
+.abilityPanel{
+  width: 10%;
+  margin: 4px;
+  display:inline-block;
+}
 .units {
 }
 .panel-default.unitPanel{

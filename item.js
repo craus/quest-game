@@ -8,7 +8,7 @@ item = (params={}) => {
       if (items.every(q => q.name != name)) {
         break
       }
-      name = questNames.rnd()
+      name = itemNames.rnd()
     }
     return name
   }

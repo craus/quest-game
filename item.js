@@ -88,12 +88,14 @@ item = (params={}) => {
     paint: function() {
       panel.find('.buy').toggle(!this.bought)
       enable(panel.find('.buy'), resources.gold() >= this.cost)
+      enable(panel.find('.next'), resources.gold() >= this.cost)
       enable(panel.find('.equip'), selectedHero && !selectedHero.quest && (!this.hero || !this.hero.quest))
       enable(panel.find('.unequip'), !!this.hero && !this.hero.quest)
       panel.find('.equip').toggle(this.bought && this.hero != selectedHero)
       panel.find('.unequip').toggle(!!this.hero)
       panel.find('.sell').toggle(this.bought && !this.hero)
       panel.find('.discard').toggle(!this.bought && this.level > minLevel)
+      panel.find('.next').toggle(!this.bought)
       
       panel.find('.equipped').toggle(this.equipped())
       if (this.equipped()) {
@@ -149,6 +151,10 @@ item = (params={}) => {
       
       this.destroy()
     },
+    next: function() {
+      this.buy()
+      this.sell()
+    },
     save: function() {
       savedata.items.push(Object.assign({
         heroIndex: heroes.indexOf(this.hero)
@@ -179,6 +185,7 @@ item = (params={}) => {
   panel.find('.unequip').click(() => result.unequip())
   panel.find('.sell').click(() => result.sell())
   panel.find('.discard').click(() => result.discard())
+  panel.find('.next').click(() => result.next())
   
   tab.find('a').click(() => result.select())
   return result

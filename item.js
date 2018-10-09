@@ -26,6 +26,12 @@ item = (params={}) => {
     wealth: 2,
     intelligence: 2
   }
+	var skillAbbreviations = {
+		defense: "DFS",
+		speed: "SPD",
+		wealth: "WLT",
+		intelligence: "INT"
+	}
   var effects = {}
   if (params.effects) {
     effects = params.effects
@@ -43,6 +49,11 @@ item = (params={}) => {
     panel.find('.effects').append(effectLine)
     setFormattedText(effectLine.find('.skill'), e[0])
     setFormattedText(effectLine.find('.value'), large(e[1]))
+		
+		var effectLabel = instantiate('effectLabelSample')
+		tab.find('.effectLabels').append(effectLabel)
+    setFormattedText(effectLabel.find('.skill'), skillAbbreviations[e[0]])
+    setFormattedText(effectLabel.find('.value'), large(e[1], 2))
   })
   
   var cost = params.cost || Math.round(50 * Math.pow(2, params.level + coolness))

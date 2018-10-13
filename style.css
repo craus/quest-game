@@ -116,6 +116,9 @@ a.bought{
   text-align: left;
 }
 .right {
+  text-align: right;
+}
+.rightFloat {
 	float: right;
 }
 

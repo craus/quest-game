@@ -218,6 +218,7 @@ setSortableValue = function(el, value) {
   }
 }
 instantiate = function(name) {
-  return $("." + name + ":first").clone().removeClass("hidden " + name)
+  var result = $("." + name + ":first").clone().removeClass("hidden " + name)
+	return result
 }
 

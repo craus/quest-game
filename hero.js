@@ -66,7 +66,7 @@ hero = (params={}) => {
         if (!this.alive) {
           return "#{0}<br>(#{1})".i(this.quest.name, 'Dead')
         }
-        return "#{0}<br>(#{1})".i(this.quest.name, Format.percent(this.quest.progress()))
+        return "#{0}<br>(#{1})".i(this.quest.name, Format.time(this.quest.remainingDuration()))
       }
       if (this.selected) {
         return "Waiting for a quest"

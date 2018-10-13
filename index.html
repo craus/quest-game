@@ -82,9 +82,9 @@
   <div class="row">
     <ul class="nav nav-tabs sections">
       <li class="active"><a data-toggle="pill" href=".questsSection">Quests</a></li>
-      <li><a data-toggle="pill" href=".outsideSection">Outside</a></li>
-      <li><a data-toggle="pill" href=".itemsSection">Keep</a></li>
-      <li><a data-toggle="pill" href=".marketplaceSection">Marketplace</a></li>
+      <li><a data-toggle="pill" href=".outsideSection" class="outsideTab">Outside</a></li>
+      <li><a data-toggle="pill" href=".itemsSection" class="keepTab">Keep</a></li>
+      <li><a data-toggle="pill" href=".marketplaceSection" class="marketTab">Marketplace</a></li>
     </ul>
   </div>
   <div class="row hidden">
@@ -193,7 +193,10 @@
                   <tr class="heroItems equipped">
                     <td class="col-md-4"><b>Items</b> (<span class="itemCount">?</span>/2)</td>
                     <td class="text-right">
-                      <span class="itemNames"></span>
+                      <span class="itemNames">
+												<a class="itemName itemNameSample hidden">?</a>
+												<span class="itemNameSeparator itemNameSeparatorSample hidden">, </span>
+											</span>
                     </td>
                   </tr>
                 </tbody>

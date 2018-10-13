@@ -91,7 +91,22 @@ hero = (params={}) => {
       this.skillPoints -= 1
       this.skills[skill] = this.skillGrowth[skill]()
     },
+		updateItemsList: function() {
+			panel.find('.itemNames').empty()
+			var index = 0
+			this.items.forEach(item => {			
+				if (index > 0) {
+					panel.find('.itemNames').append(instantiate('itemNameSeparatorSample'))
+				}
+				var itemName = instantiate('itemNameSample')
+				panel.find('.itemNames').append(itemName)
+				setFormattedText(itemName, item.name)
+				itemName.click(() => item.show())
+				index += 1
+			})
+		},
     paint: function() {
+			//this.updateItemsList()
       setFormattedText(panel.find('.status'), this.status())
       setFormattedText(tab.find('.status'), this.status())
       setFormattedText(panel.find('.level'), this.level)
@@ -123,7 +138,6 @@ hero = (params={}) => {
       setFormattedText(panel.find('.experienceToLevelUp'), large(this.experienceToLevelUp()))
       
       setFormattedText(panel.find('.itemCount'), this.items.length)
-      setFormattedText(panel.find('.itemNames'), this.items.map(i => i.name).join(', '))
       
       panel.find('.equipped').toggle(this.items.length > 0)
       
@@ -164,5 +178,6 @@ hero = (params={}) => {
   panel.find('.claimReward').click(() => hero.quest.claimReward())
   
   tab.find('a').click(() => hero.select())
+	
   return hero
 }

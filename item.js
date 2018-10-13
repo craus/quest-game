@@ -93,9 +93,22 @@ item = (params={}) => {
       panel.addClass('active')
       panel.addClass('in')
     },
+		show: function() {
+			this.select()
+      $('.#{0}Tab'.i(this.section())).tab('show')
+		},
     status: function() {
       return "Exists"
     },
+		section: function() {
+      if (this.equipped() && !!this.hero.quest) {
+        return 'outside'
+      } else if (this.bought) {
+        return 'keep'
+      } else {
+        return 'market'
+      }
+		},
     paint: function() {
       panel.find('.buy').toggle(!this.bought)
       enable(panel.find('.buy'), resources.gold() >= this.cost)
@@ -120,14 +133,7 @@ item = (params={}) => {
       if (!!selectedHero) {
         setFormattedText(panel.find('.selectedHeroName'), selectedHero.name)
       }
-      
-      if (this.equipped() && !!this.hero.quest) {
-        this.move('outside')
-      } else if (this.bought) {
-        this.move('keep')
-      } else {
-        this.move('market')
-      }
+			this.move(this.section())
       
       var a = tab.find('a')
       a.toggleClass('equipped', this.equipped() && this.hero != selectedHero)
@@ -157,9 +163,11 @@ item = (params={}) => {
       }
       this.hero = selectedHero
       selectedHero.items.push(this)
+			selectedHero.updateItemsList()
     },
     unequip: function() {
       this.hero.items.remove(this)
+			this.hero.updateItemsList()
       this.hero = null
     },
     sell: function() {

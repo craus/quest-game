@@ -96,6 +96,7 @@ function createGame(params) {
       i.hero.items.push(i)
     }
   })
+	heroes.forEach(h => h.updateItemsList())
 
   selectedHero = heroes[savedata.selectedHeroIndex]
   selectedQuest = quests[savedata.selectedQuestIndex]

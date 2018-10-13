@@ -149,6 +149,7 @@ hero = (params={}) => {
       
       setFormattedText(panel.find('.itemCount'), this.items.length)
       
+			panel.find('.equipped').toggle(this.items.count > 0)
 			skills.forEach(skill => {
 				panel.find('.#{0} .equipped'.i(skill)).toggle(this.itemsSkill(skill) > 1)
 			})

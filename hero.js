@@ -33,7 +33,7 @@ hero = (params={}) => {
       defense: () => hero.skills.defense*1.5,
       speed: () => hero.skills.speed*2,
       wealth: () => hero.skills.wealth*2,
-      intelligence: () => hero.skills.intelligence * (2 + 0.2/hero.skills.intelligence)
+      intelligence: () => hero.skills.intelligence * (2 + 1/hero.skills.intelligence)
     },
     level: 0,
     skillPoints: 0,
@@ -149,9 +149,9 @@ hero = (params={}) => {
       
       setFormattedText(panel.find('.itemCount'), this.items.length)
       
-			panel.find('.equipped').toggle(this.items.count > 0)
+			panel.find('.equipped').toggle(this.items.length > 0)
 			skills.forEach(skill => {
-				panel.find('.#{0} .equipped'.i(skill)).toggle(this.itemsSkill(skill) > 1)
+				panel.find('.#{0} .equippedWithSkill'.i(skill)).toggle(this.itemsSkill(skill) > 1)
 			})
       
       enable(panel.find('.start'), matchable())

@@ -1,7 +1,7 @@
 powerEffect = function(params) {
   return createEffect({
-    createdAt: params.createdAt || Date.now(),
-    power: function() { return params.power * Math.pow(0.5, (Date.now()-this.createdAt)/1000/params.decay) },
+    createdAt: params.createdAt || Time.gametime(),
+    power: function() { return params.power * Math.pow(0.5, (Time.gametime()-this.createdAt)/1000/params.decay) },
     paint: function() {
       setFormattedText(this.panel.find(".effectMultiplier"), large(this.effectMultiplier))
       setFormattedText(this.panel.find(".costMultiplier"), large(this.costMultiplier))

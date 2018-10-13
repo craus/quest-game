@@ -47,6 +47,16 @@ var init = function() {
   
   window.onkeydown = function(e) {
     console.log(e)
+		if (e.key == 'f') {
+			Time.faster = true
+		}
+  }	
+	
+	window.onkeyup = function(e) {
+    console.log(e)
+		if (e.key == 'f') {
+			Time.faster = false
+		}
   }	
   
   game.paint()

@@ -48,7 +48,7 @@ quest = (params={}) => {
       panel.addClass('in')
     },
     start: function() {
-      this.startedAt = Date.now()
+      this.startedAt = Time.gametime() 
       this.lastSavePoint = 0
     },
     fail: function(t) {
@@ -84,7 +84,7 @@ quest = (params={}) => {
       if (this.failed()) {
         return this.lastSavePoint
       }
-      return (Date.now() - this.startedAt)/1000
+      return (Time.gametime() - this.startedAt)/1000
     },
     remainingDuration: function() {
       return Math.max(0,this.effectiveDuration() - this.spentDuration())

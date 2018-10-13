@@ -34,8 +34,11 @@ function createGame(params) {
     savedata.realTime = timestamp || Date.now()
     savedata.activeTab = $('.sections>.active>a').attr('href')
     savedata.activeTechTab = $('.techs>.active>a').attr('href')
+		savedata.timeShift = Time.shift
     localStorage[saveName] = JSON.stringify(savedata)
   } 
+	
+	Time.shift = savedata.timeShift || 0
   
   wipeSave = function() {
     saveWiped = true
@@ -45,7 +48,7 @@ function createGame(params) {
   
   resources = {
     gold: variable(0, 'gold'),
-    time: variable(0, 'time'),
+    time: variable(0, 'time', {formatter: x => moment.duration(x,'s').format()}),
     questLimit: variable(1, 'questLimit'),
     heroLimit: variable(1, 'heroLimit'),
     traderLimit: variable(0, 'traderLimit')
@@ -194,6 +197,9 @@ function createGame(params) {
       setFormattedText($('.heroLimit'), resources.heroLimit())
       setFormattedText($('.questChance'), Format.percent(questChance()))
       setFormattedText($('.questChanceUp'), Format.percent(questChanceByLimit(resources.questLimit()+1)))
+			
+			$('.timeSpeeded').toggle(Time.speed > 1) 
+			setFormattedText($('.timeSpeed'), large(Time.speed))
       
       debug.unprofile('paint')
     },
@@ -201,7 +207,10 @@ function createGame(params) {
       debug.profile('tick')
       var currentTime = Date.now()
       var deltaTime = (currentTime - savedata.realTime) / 1000
-      
+
+			Time.tick(deltaTime)
+			deltaTime *= Time.speed
+			
       resources.time.value += deltaTime
       heroesArrival.tick(deltaTime)
       quests.each('tick', deltaTime)

@@ -116,7 +116,7 @@ a.bought{
   text-align: left;
 }
 .right {
-  text-align: right;
+	float: right;
 }
 
 .btn.buy {
@@ -142,6 +142,10 @@ a.bought{
   border-color: rgb(64, 64, 128);
 }
 
+.badge-gold {
+  background-color: rgb(160, 160, 0);
+}
+
 .btn.unequip {
   background-color: rgb(64, 64, 192);
   border-color: rgb(64, 64, 192)
@@ -159,3 +163,4 @@ a.bought{
 	border-bottom: 1px dotted #000;
 	text-decoration: none;
 }
+

@@ -191,7 +191,7 @@
                     </td>
                   </tr>
                   <tr class="heroItems equipped">
-                    <td class="col-md-4"><b>Items</b></td>
+                    <td class="col-md-4"><b>Items</b> (<span class="itemCount">?</span>/2)</td>
                     <td class="text-right">
                       <span class="itemNames"></span>
                     </td>
@@ -247,7 +247,7 @@
                       <span class="notStarted">
                         <span class="duration">?</span>
                         <span class="man">
-                          (<span class = "effectiveDuration" data-toggle="tooltip" title="Duration for this hero. Equals Duration/Speed">?</span>)
+                          (<span class = "effectiveDuration hint" data-toggle="tooltip" title="Duration for this hero. Equals Duration/Speed">?</span>)
                         </span>
                       </span>
                     </td>
@@ -257,7 +257,7 @@
                     <td class="text-right">
                       <span class="danger">?</span>
                       <span class="man">
-                        (<span class = "deathChance" data-toggle="tooltip" title="Chance to die. Equals Danger/(Danger+Defense).">?</span>)												
+                        (<span class = "deathChance hint" data-toggle="tooltip" title="Chance to die. Equals Danger/(Danger+Defense).">?</span>)												
                       </span>
                     </td>
                   </tr>
@@ -266,7 +266,7 @@
                     <td class="text-right">
                       <span class="experience">?</span>
                       <span class="man">
-                        (<span class = "effectiveExperience">?</span>)
+                        (<span class = "effectiveExperience hint" data-toggle="tooltip" title="Experience with intelligence bonus.<br>Equals Experience * Intelligence">?</span>)
                       </span>
                     </td>
                   </tr>
@@ -275,7 +275,7 @@
                     <td class="text-right">
                       <span class="gold">?</span>
                       <span class="man">
-                        (<span class = "effectiveGold">?</span>)
+                        (<span class = "effectiveGold hint" data-toggle="tooltip" title="Gold with wealth bonus.<br>Equals Gold * Wealth">?</span>)
                       </span>
                     </td>
                   </tr>
@@ -338,7 +338,10 @@
               <div class="btn-group btn-group-justified">
                 <div class="btn-group">
                   <button tabindex="-1" class="btn btn-default nohover buy">Buy (<span class="cost">?</span> gold)</button>
-                  <button tabindex="-1" class="btn btn-danger nohover equip">Equip to <span class="selectedHeroName">?</span></button>
+                  <button tabindex="-1" class="btn btn-danger nohover equip">
+										Equip to <span class="selectedHeroName">?</span>
+										<span class="instead">(instead of <span class="insteadName">?</span>)</span>
+									</button>
                   <button tabindex="-1" class="btn btn-danger nohover unequip">
                     Unequip from <span class="heroName">?</span>
                   </button>

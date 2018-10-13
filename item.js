@@ -107,6 +107,11 @@ item = (params={}) => {
       panel.find('.sell').toggle(this.bought && !this.hero)
       panel.find('.discard').toggle(!this.bought && this.level > minLevel)
       panel.find('.next').toggle(!this.bought)
+			
+			panel.find('.instead').toggle(!!this.instead())
+			if (this.instead()) {
+				setFormattedText(panel.find('.insteadName'), this.instead().name)
+			}
       
       panel.find('.equipped').toggle(this.equipped())
       if (this.equipped()) {
@@ -137,6 +142,12 @@ item = (params={}) => {
       newItem.select()
       items.push(newItem)
     },
+		instead: function() {      
+			if (selectedHero.items.length >= 2) {
+        return selectedHero.items[0]
+      }
+			return null
+		},
     equip: function() {
       if (selectedHero.items.length >= 2) {
         selectedHero.items[0].unequip()

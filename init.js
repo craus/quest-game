@@ -53,6 +53,7 @@ var init = function() {
   
 	$('[data-toggle="tooltip"]').tooltip({
 		container: 'body', 
+		html: true,
 		delay: { show: 600, hide: 0 },
 		template: '<div class="tooltip noMouse" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
 	});

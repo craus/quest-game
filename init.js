@@ -51,7 +51,12 @@ var init = function() {
   
   game.paint()
   
-  $('[data-toggle="tooltip"]').tooltip(); 
+	$('[data-toggle="tooltip"]').tooltip({
+		container: 'body', 
+		delay: { show: 600, hide: 0 },
+		template: '<div class="tooltip noMouse" role="tooltip"><div class="arrow"></div><div class="tooltip-inner"></div></div>'
+	});
+ 
   
   $("button").mouseup(function(){
     $(this).blur();

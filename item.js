@@ -73,7 +73,7 @@ item = (params={}) => {
     effects: effects,
     bought: false,
     sellCost: function() {
-      return Math.floor(cost/2)
+      return Math.floor(this.cost/2)
     },
     equipped: function() {
       return !!this.hero
@@ -162,6 +162,9 @@ item = (params={}) => {
       
       this.destroy()
     },
+		nextCost: function() {
+			return this.cost - this.sellCost()
+		},
     next: function() {
       this.buy()
       this.sell()
@@ -190,6 +193,8 @@ item = (params={}) => {
       items.splice(items.indexOf(this), 1)
     }
   }, _.omit(params, 'tab', 'panel'))
+	
+  setFormattedText(panel.find('.nextCost'), large(result.nextCost()))
   
   panel.find('.buy').click(() => result.buy())
   panel.find('.equip').click(() => result.equip())

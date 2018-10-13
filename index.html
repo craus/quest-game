@@ -1,12 +1,12 @@
 <head>
   
   <link rel="shortcut icon" href="https://maxcdn.icons8.com/Share/icon/Military//sword1600.png">
-  <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
 	<script src="jquery.js"></script>
 	<script src="moment.js"></script>
 	<script src="moment-duration-format.js"></script>
 	<script src="underscore.js"></script>
-  <script src="bootstrap.min.js"></script>
+  <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
   <script src="bootstrap-sortable.js"></script>
   <link rel="stylesheet" type="text/css" href="bootstrap-sortable.css">
 
@@ -149,7 +149,7 @@
                     <td class="col-md-4"><b>Level</b></td>
                     <td class="text-right">
                       <span class="level">?</span>
-                      <span class="skillPointsNotZero">
+                      <span class="skillPointsNotZero hint" data-toggle="tooltip" title="You can improve one skill with each skill point">
                         (<span class="skillPoints">?</span>&nbsp;skill&nbsp;points)
                       </span>
                     </td>
@@ -159,7 +159,7 @@
                     <td class="text-right"><span class="experience">?</span> / <span class = "experienceToLevelUp">?</span></td>
                   </tr>
                   <tr class="speed">
-                    <td class="col-md-4"><b>Speed</b></td>
+                    <td class="col-md-4"><b class="hint" data-toggle="tooltip" title="Reduces quest durations">Speed</b></td>
                     <td class="text-right">
                       <span class="value">?</span>
                       <a class="skillUp">→ <b class="skillUpValue">+</b></a>
@@ -167,7 +167,7 @@
                     </td>
                   </tr>
                   <tr class="defense">
-                    <td class="col-md-4"><b>Defense</b></td>
+                    <td class="col-md-4"><b class="hint" data-toggle="tooltip" title="Reduces chance of death in quests">Defense</b></td>
                     <td class="text-right">
                       <span class="value">?</span>
                       <a class="skillUp">→ <b class="skillUpValue">+</b></a>
@@ -175,7 +175,7 @@
                     </td>
                   </tr>
                   <tr class="wealth">
-                    <td class="col-md-4"><b>Wealth</b></td>
+                    <td class="col-md-4"><b class="hint" data-toggle="tooltip" title="Increases gold from quests">Wealth</b></td>
                     <td class="text-right">
                       <span class="value">?</span>
                       <a class="skillUp">→ <b class="skillUpValue">+</b></a>
@@ -183,7 +183,7 @@
                     </td>
                   </tr>
                   <tr class="intelligence">
-                    <td class="col-md-4"><b>Intelligence</b></td>
+                    <td class="col-md-4"><b class="hint" data-toggle="tooltip" title="Increases experience from quests">Intelligence</b></td>
                     <td class="text-right">
                       <span class="value">?</span>
                       <a class="skillUp">→ <b class="skillUpValue">+</b></a>
@@ -247,7 +247,7 @@
                       <span class="notStarted">
                         <span class="duration">?</span>
                         <span class="man">
-                          (<span class = "effectiveDuration">?</span>)
+                          (<span class = "effectiveDuration" data-toggle="tooltip" title="Duration for this hero. Equals Duration/Speed">?</span>)
                         </span>
                       </span>
                     </td>
@@ -257,7 +257,7 @@
                     <td class="text-right">
                       <span class="danger">?</span>
                       <span class="man">
-                        (<span class = "deathChance">?</span>)
+                        (<span class = "deathChance" data-toggle="tooltip" title="Chance to die. Equals Danger/(Danger+Defense).">?</span>)												
                       </span>
                     </td>
                   </tr>
@@ -287,7 +287,9 @@
                 <div class="btn-group">
                   <button tabindex="-1" class="btn btn-default nohover start">Start</button>
                   <button tabindex="-1" class="btn btn-danger nohover abandon">Abandon</button>
-                  <button tabindex="-1" class="btn btn-danger nohover discard">Discard</button>
+                  <button tabindex="-1" class="btn btn-danger nohover discard" data-toggle="tooltip" data-placement="top" title="Skip this quest. Get a quest of previous level">
+										Discard
+									</button>
                   <button tabindex="-1" class="btn btn-danger nohover buryHero">Bury hero</button>
                   <button tabindex="-1" class="btn btn-default nohover claimReward">Claim Reward</button>
                 </div>
@@ -335,14 +337,14 @@
             <div class="panel-body">
               <div class="btn-group btn-group-justified">
                 <div class="btn-group">
-                  <button tabindex="-1" class="btn btn-default nohover buy">Buy</button>
+                  <button tabindex="-1" class="btn btn-default nohover buy">Buy (<span class="cost">?</span> gold)</button>
                   <button tabindex="-1" class="btn btn-danger nohover equip">Equip to <span class="selectedHeroName">?</span></button>
                   <button tabindex="-1" class="btn btn-danger nohover unequip">
                     Unequip from <span class="heroName">?</span>
                   </button>
                   <button tabindex="-1" class="btn btn-danger nohover sell">Sell</button>
-                  <button tabindex="-1" class="btn btn-danger nohover discard">Discard</button>
-                  <button tabindex="-1" class="btn btn-danger nohover next">Next</button>
+                  <button tabindex="-1" class="btn btn-danger nohover discard" data-toggle="tooltip" title="Replaces this item with one of lower level">Discard</button>
+                  <button tabindex="-1" class="btn btn-danger nohover next" data-toggle="tooltip" title="Buy and immediately sell this item">Next (<span class="nextCost">?</span> gold)</button>
                 </div>
               </div>          
             </div>

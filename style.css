@@ -11,6 +11,9 @@ a {
   cursor: default;
   outline: none
 }
+.noMouse {
+	pointer-events: none;
+}
 .centered {
   text-align: center
 }
@@ -150,4 +153,9 @@ a.bought{
 .btn.unequip.disabled, .btn.unequip[disabled] {
   background-color: rgb(64, 64, 128);
   border-color: rgb(64, 64, 128);
+}
+
+.hint{   
+	border-bottom: 1px dotted #000;
+	text-decoration: none;
 }

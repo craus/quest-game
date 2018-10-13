@@ -194,6 +194,7 @@ quest = (params={}) => {
       quests.push(quest({level: this.level+1}))
     },
     destroy: function() {
+			panel.find('[data-toggle="tooltip"]').tooltip('hide')
       panel.remove()
       tab.remove()
       quests.splice(quests.indexOf(this), 1)

@@ -207,6 +207,7 @@ item = (params={}) => {
       if (selectedItem == this) {
         this.deselect()
       }
+			panel.find('[data-toggle="tooltip"]').tooltip('hide')
       panel.remove()
       tab.remove()
       items.splice(items.indexOf(this), 1)

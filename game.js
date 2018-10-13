@@ -142,7 +142,8 @@ function createGame(params) {
     })
   }
   
-  var heroesArrivalPeriod = (hl) => heroes.length == 0 ? 0 : (heroes.length < hl ? 30 : Number.POSITIVE_INFINITY)
+	baseHeroesArrivalPeriod = 30
+  var heroesArrivalPeriod = (hl) => heroes.length == 0 ? 0 : (heroes.length < hl ? baseHeroesArrivalPeriod : Number.POSITIVE_INFINITY)
   
   heroesArrival = poisson({
     trigger: function() {
@@ -159,7 +160,15 @@ function createGame(params) {
   
   $('a[href="' + savedata.activeTab + '"]').tab('show')
   $('a[href="' + savedata.activeTechTab + '"]').tab('show')
+
+	console.log("radio")
+	$("input:radio[name=itemSort]").change(function(){
+		console.log("radio") 
+	});     
   
+	
+	heroSpawning = false
+	
   spellcaster = {
     paint: function() {
       debug.profile('paint')
@@ -171,9 +180,14 @@ function createGame(params) {
       setFormattedText($('.heroCount'), heroes.length)
       setFormattedText($('.questCount'), quests.length)
       Object.values(buys).each('paint')
+			
+			heroSpawning = heroesArrival.period() < Number.POSITIVE_INFINITY
+      $('.heroSpawning').toggle(heroSpawning)
+      $('.noHeroSpawning').toggle(!heroSpawning)
       
-      setFormattedText($('.heroesArrival.period'), Format.time(heroesArrival.period()))
+      setFormattedText($('.heroesArrival.period'), moment.duration(heroesArrival.period(), 's').format("s [seconds]"))
       setFormattedText($('.heroesArrivalPeriodUp'), Format.time(heroesArrivalPeriod(resources.heroLimit()+1)))
+      setFormattedText($('.heroLimit'), resources.heroLimit())
       setFormattedText($('.questChance'), Format.percent(questChance()))
       setFormattedText($('.questChanceUp'), Format.percent(questChanceByLimit(resources.questLimit()+1)))
       

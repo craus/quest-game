@@ -185,6 +185,9 @@ function createGame(params) {
 			heroSpawning = heroesArrival.period() < Number.POSITIVE_INFINITY
       $('.heroSpawning').toggle(heroSpawning)
       $('.noHeroSpawning').toggle(!heroSpawning)
+			
+			$('.outsideTab').toggle(items.some(item => item.section() == 'outside'))
+			$('.keepTab').toggle(items.some(item => item.section() == 'keep'))
       
       setFormattedText($('.heroesArrival.period'), moment.duration(heroesArrival.period(), 's').format("s [seconds]"))
       setFormattedText($('.heroesArrivalPeriodUp'), Format.time(heroesArrivalPeriod(resources.heroLimit()+1)))

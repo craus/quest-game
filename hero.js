@@ -11,6 +11,8 @@ hero = (params={}) => {
     }
     name = names.rnd()
   }
+	
+	skills = ['speed', 'defense', 'intelligence', 'wealth']
   
   var hero = Object.assign({
     name: name,
@@ -23,6 +25,9 @@ hero = (params={}) => {
     },
     effectiveSkill: function(skill) {
       return this.items.reduce((acc, item) => acc * (item.effects[skill] || 1), this.skills[skill])
+    },
+    itemsSkill: function(skill) {
+      return this.items.reduce((acc, item) => acc * (item.effects[skill] || 1), 1)
     },
     skillGrowth: {
       defense: () => hero.skills.defense*1.5,
@@ -133,13 +138,20 @@ hero = (params={}) => {
       setFormattedText(panel.find('.defense').find('.effectiveValue'), large(this.effectiveSkill('defense')))
       setFormattedText(panel.find('.intelligence').find('.effectiveValue'), large(this.effectiveSkill('intelligence')))
       setFormattedText(panel.find('.wealth').find('.effectiveValue'), large(this.effectiveSkill('wealth')))
+			
+			setTooltip(panel.find('.speed .fromItems'), "x#{0} from items".i(large(this.itemsSkill('speed'))))
+			setTooltip(panel.find('.defense .fromItems'), "x#{0} from items".i(large(this.itemsSkill('defense'))))
+			setTooltip(panel.find('.intelligence .fromItems'), "x#{0} from items".i(large(this.itemsSkill('intelligence'))))
+			setTooltip(panel.find('.wealth .fromItems'), "x#{0} from items".i(large(this.itemsSkill('wealth'))))
       
       setFormattedText(panel.find('.experience'), large(this.experience))
       setFormattedText(panel.find('.experienceToLevelUp'), large(this.experienceToLevelUp()))
       
       setFormattedText(panel.find('.itemCount'), this.items.length)
       
-      panel.find('.equipped').toggle(this.items.length > 0)
+			skills.forEach(skill => {
+				panel.find('.#{0} .equipped'.i(skill)).toggle(this.itemsSkill(skill) > 1)
+			})
       
       enable(panel.find('.start'), matchable())
       panel.find('.start').toggle(!this.quest)

@@ -195,6 +195,9 @@ const Format = {
 setTitle = function(el, title) {
   el.attr('data-original-title', title)
 }
+setTooltip = function(el, tooltip) {
+	el.attr('title', tooltip).tooltip('fixTitle');
+}
 formatText = function(el, text, text1) {
   var format = el.attr('data-text')
   if (format == undefined) {
